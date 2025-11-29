@@ -116,14 +116,29 @@ def main():
     if files:
         st.subheader("📄 Files")
         
-        # File selection
-        selected_file = st.radio("Select a file to view:", files)
+        # File selection with unique key based on path
+        # Use a hash of the path to ensure the key is valid and unique
+        files_key = f"files_{abs(hash(st.session_state.current_path))}"
+        selected_file = st.radio("Select a file to view:", files, key=files_key)
         
         if selected_file:
             file_path = os.path.join(st.session_state.current_path, selected_file)
             st.markdown("---")
             st.header(f"📄 {selected_file}")
             
+            # Download button (Top priority)
+            try:
+                with open(file_path, "rb") as f:
+                    file_bytes = f.read()
+                st.download_button(
+                    label=f"⬇️ Download {selected_file}",
+                    data=file_bytes,
+                    file_name=selected_file,
+                    mime="application/octet-stream"
+                )
+            except Exception as e:
+                st.error(f"Error preparing download: {e}")
+
             # Determine file extension
             _, ext = os.path.splitext(file_path)
             ext = ext.lower()
@@ -145,20 +160,10 @@ def main():
                     st.markdown(pdf_display, unsafe_allow_html=True)
                     
                 else:
-                    st.warning("File type not supported for direct preview.")
-
-                # Download button
-                with open(file_path, "rb") as f:
-                    file_bytes = f.read()
-                st.download_button(
-                    label=f"Download {selected_file}",
-                    data=file_bytes,
-                    file_name=selected_file,
-                    mime="application/octet-stream"
-                )
-                
+                    st.info("Preview not available for this file type. Please use the download button above.")
+            
             except Exception as e:
-                st.error(f"Error reading file: {e}")
+                st.error(f"Error reading file preview: {e}")
 
 if __name__ == "__main__":
     main()
