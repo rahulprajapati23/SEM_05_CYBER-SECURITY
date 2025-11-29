@@ -1,0 +1,43 @@
+A51 MACRO ASSEMBLER  P8                                                                   11/16/2025 19:15:08 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN P8.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE P8.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     AGAIN:
+0000 75B0FF            2     MOV P3,#0FFH
+0003 E5B0              3     MOV A,P3
+0005 F8                4     MOV R0,A
+0006 540F              5     ANL A,#0FH
+0008 F5A0              6     MOV P2,A
+000A E8                7     MOV A,R0
+000B 54F0              8     ANL A,#0F0H
+000D 03                9     RR A
+000E 03               10     RR A
+000F 03               11     RR A
+0010 03               12     RR A
+0011 F590             13     MOV P1,A
+0013 80EB             14     SJMP AGAIN      
+                      15     
+*** WARNING #A41 IN 15 (P8.asm, LINE 15): MISSING 'END' STATEMENT
+A51 MACRO ASSEMBLER  P8                                                                   11/16/2025 19:15:08 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+AGAIN. . . . . . .  C ADDR   0000H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  1 WARNING(S), 0 ERROR(S)

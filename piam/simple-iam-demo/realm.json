@@ -1,0 +1,70 @@
+{
+    "realm": "simple-iam",
+    "enabled": true,
+    "users": [
+        {
+            "username": "alice",
+            "enabled": true,
+            "emailVerified": true,
+            "firstName": "Alice",
+            "lastName": "User",
+            "email": "alice@example.com",
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "Alice@123",
+                    "temporary": false
+                }
+            ],
+            "realmRoles": [
+                "user"
+            ],
+            "requiredActions": [
+                "CONFIGURE_TOTP"
+            ]
+        },
+        {
+            "username": "bob",
+            "enabled": true,
+            "emailVerified": true,
+            "firstName": "Bob",
+            "lastName": "Admin",
+            "email": "bob@example.com",
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "Bob@123",
+                    "temporary": false
+                }
+            ],
+            "realmRoles": [
+                "admin"
+            ],
+            "requiredActions": [
+                "CONFIGURE_TOTP"
+            ]
+        }
+    ],
+    "roles": {
+        "realm": [
+            {
+                "name": "user",
+                "description": "User role"
+            },
+            {
+                "name": "admin",
+                "description": "Admin role"
+            }
+        ]
+            "directAccessGrantsEnabled": true,
+        "protocol": "openid-connect",
+        "fullScopeAllowed": true
+    }
+],
+"otpPolicyType": "totp",
+"otpPolicyAlgorithm": "HmacSHA1",
+"otpPolicyInitialCounter": 0,
+"otpPolicyDigits": 6,
+"otpPolicyLookAheadWindow": 1,
+"otpPolicyPeriod": 30
+}

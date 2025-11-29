@@ -1,0 +1,35 @@
+AGAIN:
+SETB P3.7
+ACALL DELAY
+CLR P3.7
+ACALL DELAY
+SJMP AGAIN
+
+DELAY:
+MOV R0,#3
+LOOP1:MOV R1,#20
+LOOP2:DJNZ R1,LOOP2
+DJNZ R0,LOOP1
+RET
+END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		;F=4KHZ
+;T = 1/F	 = 1/4KHZ = 0.25msec
+;250musec
+;delay = 125musec
+;fc=11.0592

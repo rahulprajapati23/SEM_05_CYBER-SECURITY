@@ -1,0 +1,38 @@
+1. Write an algorithm for even odd numbers.
+	
+	def even_odd_fun(num):
+		if num == 0:
+			print("number is '0'")
+		elif num % 2 == 0:
+			print("number is even")
+		else num % 2 != 0:
+			print("number is odd")
+
+2. Write an algorithm for prime numbers.
+
+	def check_prime(num):
+    		count = 0
+    		if num <= 1:
+        	print("Not prime")
+   		else:
+       			for i in range(1, num + 1):
+            			if num % i == 0:
+                			count += 1
+        		if count == 2:
+            			print("Prime number")
+        		else:
+            			print("Not prime")
+
+3. Write an algorithm for find out GCD(Greatest Common Divisor) of two numbers.
+	
+	def gcd_find(num1,num2):
+		if num2 > num1:
+			mn = num1
+		else:
+			mn = num2
+		for i in range (1 , mn+1):
+			if num1 % i==0 and num2 % i==0:
+				hcf = i
+		print(f"gcd of {num1} and {num2} is {hcf}")
+		
+	

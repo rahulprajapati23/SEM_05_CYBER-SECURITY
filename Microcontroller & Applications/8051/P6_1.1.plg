@@ -1,0 +1,23 @@
+<html>
+<body>
+<pre>
+<h1>µVision3 Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Hp\OneDrive\Desktop\SEM_05\Microcontroller & Applications\8051\test.uv2
+Project File Date:  10/02/2025
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling P6_1.1.asm...
+linking...
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0002H
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0019H
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0019H
+Program Size: data=9.0 xdata=0 code=160
+"P6_1.1" - 0 Error(s), 3 Warning(s).

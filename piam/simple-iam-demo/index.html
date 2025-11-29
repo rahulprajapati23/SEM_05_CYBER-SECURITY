@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopKey - E-commerce Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Keycloak JS Adapter (CDN for reliability) -->
+    <script src="https://cdn.jsdelivr.net/npm/keycloak-js@26.0.0/dist/keycloak.min.js"></script>
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">ShopKey</div>
+            <nav>
+                <a href="#" id="navShop">Shop</a>
+                <a href="#" id="navCart">Cart (<span id="cartCount">0</span>)</a>
+                <a href="#" id="navLogin">Login</a>
+                <a href="dashboard.html" id="navAccount" style="display: none;">My Account</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <h1>Welcome to ShopKey</h1>
+                <p>Secure Shopping with Keycloak Identity</p>
+            </section>
+
+            <section class="products">
+                <h2>Featured Products</h2>
+                <div id="productGrid" class="product-grid">
+                    <!-- Products rendered by JS -->
+                    <div class="loading">Loading products...</div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Cart Modal -->
+        <div id="cartModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Your Cart</h2>
+                <div id="cartItems">
+                    <p>Your cart is empty.</p>
+                </div>
+                <div class="cart-total">
+                    <h3>Total: $<span id="cartTotal">0.00</span></h3>
+                </div>
+                <button id="checkoutBtn" class="btn primary">Checkout (Login Required)</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 ShopKey E-commerce</p>
+        </footer>
+    </div>
+</body>
+
+</html>

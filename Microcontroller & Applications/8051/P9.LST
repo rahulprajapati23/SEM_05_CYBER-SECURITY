@@ -1,0 +1,63 @@
+A51 MACRO ASSEMBLER  P9                                                                   11/15/2025 23:03:26 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN P9.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE P9.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     AGAIN:
+0000 D2B7              2     SETB P3.7
+0002 110A              3     ACALL DELAY
+0004 C2B7              4     CLR P3.7
+0006 110A              5     ACALL DELAY
+0008 80F6              6     SJMP AGAIN
+                       7     
+000A                   8     DELAY:
+000A 7803              9     MOV R0,#3
+000C 7914             10     LOOP1:MOV R1,#20
+000E D9FE             11     LOOP2:DJNZ R1,LOOP2
+0010 D8FA             12     DJNZ R0,LOOP1
+0012 22               13     RET
+                      14     END
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                                             ;F=4KHZ
+                             ;T = 1/F         = 1/4KHZ = 0.25msec
+                             ;250musec
+                             ;delay = 125musec
+                             ;fc=11.0592
+A51 MACRO ASSEMBLER  P9                                                                   11/15/2025 23:03:26 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+AGAIN. . . . . . .  C ADDR   0000H   A   
+DELAY. . . . . . .  C ADDR   000AH   A   
+LOOP1. . . . . . .  C ADDR   000CH   A   
+LOOP2. . . . . . .  C ADDR   000EH   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

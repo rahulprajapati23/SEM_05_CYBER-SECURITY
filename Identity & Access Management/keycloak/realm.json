@@ -1,0 +1,43 @@
+{
+  "realm": "demo-realm",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "app-a",
+      "publicClient": true,
+      "protocol": "openid-connect",
+      "redirectUris": ["http://localhost:3000/callback"],
+      "webOrigins": ["http://localhost:3000"],
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true
+    },
+    {
+      "clientId": "app-b",
+      "publicClient": true,
+      "protocol": "openid-connect",
+      "redirectUris": ["http://localhost:3001/callback"],
+      "webOrigins": ["http://localhost:3001"],
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true
+    }
+  ],
+  "users": [
+    {
+      "username": "testuser",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Test",
+      "lastName": "User",
+      "email": "testuser@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin",
+          "temporary": false
+        }
+      ]
+    }
+  ]
+}

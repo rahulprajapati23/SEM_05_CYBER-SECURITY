@@ -1,0 +1,3 @@
+@echo off
+echo Starting IAM Demo Shop (React)...
+node "node_modules/vite/bin/vite.js"

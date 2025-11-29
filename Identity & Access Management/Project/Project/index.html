@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>IAM Demo Shop – Keycloak SSO + 2FA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Keycloak JS (same as before) -->
+  <script src="https://cdn.jsdelivr.net/npm/keycloak-js@latest/dist/keycloak.min.js"></script>
+
+  <!-- App logic (same app.js as before) -->
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Top navigation -->
+    <header class="navbar glass-panel">
+      <div class="navbar-left">
+        <div class="logo-circle">IAM</div>
+        <div class="logo-text">
+          <span class="brand-name">IAM Demo Shop</span>
+          <span class="brand-subtitle">Keycloak SSO • 2FA • RBAC</span>
+        </div>
+      </div>
+
+      <div class="navbar-right">
+        <div id="user-pill" class="user-pill hidden">
+          <span id="user-name"></span>
+          <span id="user-roles" class="user-roles"></span>
+        </div>
+        <!-- This button still triggers loginWithSSO() from app.js -->
+        <button id="loginBtn" class="btn primary" onclick="loginWithSSO()">Login with SSO</button>
+        <button id="logoutBtn" class="btn subtle hidden">Logout</button>
+      </div>
+    </header>
+
+    <main class="main-grid">
+      <!-- Hero + IAM explanation -->
+      <section class="hero glass-panel">
+        <h1>Secure E-Commerce with <span class="accent">Keycloak</span></h1>
+        <p class="hero-text">
+          This demo shows how an e-commerce website uses
+          <strong>Keycloak</strong> for
+          <strong>Single Sign-On (SSO)</strong>,
+          <strong>Two-Factor Authentication (TOTP)</strong>, and
+          <strong>role-based access control (RBAC)</strong>.
+        </p>
+
+        <ul class="hero-list">
+          <li>🔐 Centralized identity in Keycloak (no passwords in app).</li>
+          <li>📲 2FA enforced via TOTP (Google Authenticator, etc.).</li>
+          <li>🛂 Roles like <code>customer</code> and <code>admin</code> control access.</li>
+        </ul>
+
+        <div class="hero-actions">
+          <!-- Also uses loginWithSSO() from your existing app.js -->
+          <button id="heroLoginBtn" class="btn primary" onclick="loginWithSSO()">
+            Login &amp; Experience SSO
+          </button>
+          <button id="viewTokenBtn" class="btn ghost">
+            View ID Token in Console
+          </button>
+        </div>
+
+        <div class="info-chip-row">
+          <div class="info-chip">
+            <span class="chip-label">Status</span>
+            <span id="auth-status" class="chip-value offline">Not authenticated</span>
+          </div>
+          <div class="info-chip">
+            <span class="chip-label">2FA</span>
+            <span class="chip-value">TOTP via Keycloak</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Product grid -->
+      <section class="products glass-panel">
+        <div class="section-header">
+          <h2>Featured Security Courses</h2>
+          <p>Fake products – real IAM demo 😄</p>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card">
+            <div class="product-pill">Beginner</div>
+            <h3>Intro to Cyber Security</h3>
+            <p>Understand basic threats, passwords, phishing, and safe browsing.</p>
+            <div class="product-footer">
+              <span class="price-tag">₹999</span>
+              <button class="btn small">Add to Cart</button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-pill accent-pill">IAM &amp; SSO</div>
+            <h3>Identity &amp; Access Management Deep Dive</h3>
+            <p>OAuth2, OIDC, SAML, SSO, federation and governance in one course.</p>
+            <div class="product-footer">
+              <span class="price-tag">₹1,499</span>
+              <button class="btn small">Add to Cart</button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-pill">Advanced</div>
+            <h3>Red Team Lab</h3>
+            <p>Practice attacking and defending modern web applications.</p>
+            <div class="product-footer">
+              <span class="price-tag">₹1,999</span>
+              <button class="btn small">Add to Cart</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Admin area / RBAC demo -->
+      <section class="admin-demo glass-panel">
+        <div class="section-header">
+          <h2>Admin Area – Role Based Access</h2>
+          <p>Only users with <code>admin</code> role in Keycloak should see the admin dashboard.</p>
+        </div>
+
+        <div class="admin-layout">
+          <div>
+            <p>
+              Current user roles:
+              <span id="roles-inline" class="pill small-pill">guest</span>
+            </p>
+            <p class="muted">
+              Try logging in as <code>demo-user</code> (role: <code>customer</code>).
+              The app will block access to the Admin Dashboard.
+            </p>
+          </div>
+
+          <div class="admin-actions">
+            <button id="adminBtn" class="btn danger">
+              Go to Admin Dashboard
+            </button>
+            <div id="adminMsg" class="admin-msg"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>IAM Demo • Keycloak SSO + 2FA + RBAC</span>
+      <span>Perfect for viva: just explain flow while you click 👌</span>
+    </footer>
+  </div>
+</body>
+</html>

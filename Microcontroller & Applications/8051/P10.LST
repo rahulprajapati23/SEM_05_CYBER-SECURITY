@@ -1,0 +1,51 @@
+A51 MACRO ASSEMBLER  P10                                                                  11/20/2025 17:29:47 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN P10.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE P10.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 E590              2     START:  MOV A, P1
+0002 7A08              3             MOV R2, #08H
+                       4     
+0004 13                5     LOOPT:  RRC A
+0005 B100              6             ACALL DELAY
+0007 92A0              7             MOV P2.0, C
+0009 DAF9              8             DJNZ R2, LOOPT
+000B 80F3              9             SJMP START
+                      10     
+0500                  11     ORG 0500H
+0500 7B1E             12     DELAY:  MOV R3, #1EH
+0502 7C1E             13     LOOP1:  MOV R4, #1EH
+0504 7DFE             14     LOOP2:  MOV R5, #0FEH
+0506 DDFE             15     LOOP3:  DJNZ R5, LOOP3
+0508 DCFA             16             DJNZ R4, LOOP2
+050A DBF6             17             DJNZ R3, LOOP1
+050C 22               18             RET
+                      19     
+                      20     END
+A51 MACRO ASSEMBLER  P10                                                                  11/20/2025 17:29:47 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   0500H   A   
+LOOP1. . . . . . .  C ADDR   0502H   A   
+LOOP2. . . . . . .  C ADDR   0504H   A   
+LOOP3. . . . . . .  C ADDR   0506H   A   
+LOOPT. . . . . . .  C ADDR   0004H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+START. . . . . . .  C ADDR   0000H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

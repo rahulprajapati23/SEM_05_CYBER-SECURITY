@@ -1,0 +1,8 @@
+"..\STARTUP.obj",
+"..\test1.obj",
+"..\swap.obj",
+"..\P6_2.obj",
+"..\P6_2_led.obj",
+"..\P6_1.1.obj" 
+TO "..\P6_2_LED" 
+PRINT(".\P6_2_LED.m51")

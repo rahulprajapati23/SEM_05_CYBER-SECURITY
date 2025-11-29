@@ -1,0 +1,29 @@
+# ORG 5000H
+# DB F1H,52H,28H,B1H,A9H,08H,13H,36H,26H,88H,FFH,E4H,22H,31H,65H,44H,09H,73H,35H,48H
+# ORG 51OOH
+	   LXI H,5000H// LOAD THE ADDRESS 5000H INTO HL PAIR
+	   MVI C,14H	// STORE 14H IN REGISTER C
+	   MVI D,00H	// STORE 00H IN REGISTER D FOR 
+                                            //POSITIVE COUNT
+	   MVI E,00H	// STORE 14H IN REGISTER E FOR 
+                                             //NEGATIVE COUNT
+NEXT:	   MOV A,M	// MOVE MEMORY DATA INTO ACCUMULATOR
+	   ANI 80H	// PERFORM AND OPERATION TO 
+                                             //IDENTIFY MSB 1 OR 0
+	   JZ POSITIVE// IF SIGN BIT IS 0 THEN JUMP ON
+                                                // POSITIVE
+NEG:	   INR E	// INCREMENT NEGATIVE COUNTER
+	   JMP CONTINUE	// JUMP ON CONTINUE
+POSITIVE:	   INR D	// INCREMENT POSITIVE COUNTER
+CONTINUE:	   INX H	// INCREMENT HL PAIR
+	   DCR C	// DECREMENT MAIN COUNTER
+	   JNZ NEXT	// JUMP ON NEXT IF ZERO FLAG IS NOT
+                                            // SET TO 0
+	   MOV A,D	// MOVE POSITIVE COUNTS TO 
+                                             //ACCUMULATOR
+	   OUT 30H	// STORE ACCUMULATOR DATA INTO
+                                             // MEMORY ADDRESS 30H
+	   MOV A,E// MOVE NEGATIVE COUNTS TO ACCUMULATOR
+	   OUT 40H	// STORE ACCUMULATOR DATA INTO
+                                            // MEMORY ADDRESS 40H
+	   HLT	// HOLD

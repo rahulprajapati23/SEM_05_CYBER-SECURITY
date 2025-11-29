@@ -1,0 +1,19 @@
+# ORG FF00H
+# DB 21H,22H,23H,24H,25H,26H,27H,28H,29H,30H
+# ORG 0000H
+	   MVI A,0A
+	   STA 3FFF
+	   LDA 3FFF
+	   MOV C,A
+	   LXI H,FF09
+	   LXI D,3050
+
+AGAIN:	   MOV A,M
+	   STAX D
+	   DCX H
+	   INX D
+	   DCR C
+	   MOV A,C
+	   CPI 00
+	   JNZ AGAIN
+	   HLT

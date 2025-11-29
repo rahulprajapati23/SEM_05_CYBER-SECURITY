@@ -1,0 +1,31 @@
+A51 MACRO ASSEMBLER  TEST1                                                                10/02/2025 12:22:23 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN test1.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE test1.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000 7410              1     MOV A,#10H
+0002 7820              2     MOV R0,#20H
+0004 A900              3     MOV R1,00H
+0006 7B14              4     MOV R3,#20
+0008 752055            5     MOV 20H,#55H
+000B E6                6     MOV A,@R0
+                       7     
+*** WARNING #A41 IN 7 (test1.asm, LINE 7): MISSING 'END' STATEMENT
+A51 MACRO ASSEMBLER  TEST1                                                                10/02/2025 12:22:23 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  1 WARNING(S), 0 ERROR(S)

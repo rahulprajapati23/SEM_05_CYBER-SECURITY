@@ -1,0 +1,66 @@
+C51 COMPILER V8.16   DIWALI                                                                10/04/2025 12:15:22 PAGE 1   
+
+
+C51 COMPILER V8.16, COMPILATION OF MODULE DIWALI
+OBJECT MODULE PLACED IN diwali.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE diwali.c DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg51.h>
+   2          
+   3          void delay(){
+   4   1              int i;
+   5   1              int j;
+   6   1              for (i=0;i<350;i++){
+   7   2                      for(j=0;j<150;j++){
+   8   3                      }
+   9   2              }
+  10   1      }
+  11          
+  12          void main(){
+  13   1              while(1){
+  14   2                      P1 = 0x80;
+  15   2                      P0 = 0X01;
+  16   2                      delay();
+  17   2                      P1 = 0x40;
+  18   2                      P0 = 0X02;
+  19   2                      delay();                                                                                                                                                                                                                                                                   
+  20   2                      P1 = 0x20;
+  21   2                      P0 = 0x04;
+  22   2                      delay();
+  23   2                      P1 = 0x10;
+  24   2                      P0 = 0x08;
+  25   2                      delay();
+  26   2                      P1 = 0x08;
+  27   2                      P0 = 0x10;
+  28   2                      delay();
+  29   2                      P1 = 0x04;
+  30   2                      P0 = 0x20;
+  31   2                      delay();
+  32   2                      P1 = 0x02;
+  33   2                      P0 = 0x40;
+  34   2                      delay();
+  35   2                      P1 = 0x01;
+  36   2                      P0 = 0x80;
+  37   2                      delay();
+  38   2                      P1 = 0xFF;
+  39   2                      P0 =0xFF;
+  40   2                      delay();
+  41   2                      
+  42   2              }
+  43   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    112    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

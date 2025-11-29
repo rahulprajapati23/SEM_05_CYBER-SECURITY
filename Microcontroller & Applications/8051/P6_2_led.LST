@@ -1,0 +1,57 @@
+C51 COMPILER V8.16   P6_2_LED                                                              10/04/2025 12:48:35 PAGE 1   
+
+
+C51 COMPILER V8.16, COMPILATION OF MODULE P6_2_LED
+OBJECT MODULE PLACED IN P6_2_led.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE P6_2_led.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg51.h>
+   2          
+   3          void delay(){
+   4   1              int i;
+   5   1              int j;
+   6   1              for (i=0;i<200;i++){
+   7   2                      for(j=0;j<100;j++){
+   8   3                      }
+   9   2              }
+  10   1      }
+  11          
+  12          void main(){
+  13   1              while(1){
+  14   2                      P1 = 0x01;
+  15   2                      delay();
+  16   2                      P1 = 0x02;
+  17   2                      delay();                                                                                                                                                                                                                                                                   
+  18   2                      P1 = 0x04;
+  19   2                      delay();
+  20   2                      P1 = 0x08;
+  21   2                      delay();
+  22   2                      P1 = 0x10;
+  23   2                      delay();
+  24   2                      P1 = 0x20;
+  25   2                      delay();
+  26   2                      P1 = 0x40;
+  27   2                      delay();
+  28   2                      P1 = 0x80;
+  29   2                      delay();
+  30   2                      P1 = 0xFF;
+  31   2                      delay();
+  32   2                      
+  33   2              }
+  34   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     85    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

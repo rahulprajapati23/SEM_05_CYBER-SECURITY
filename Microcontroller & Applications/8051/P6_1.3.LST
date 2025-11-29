@@ -1,0 +1,36 @@
+A51 MACRO ASSEMBLER  P6_1_3                                                               10/07/2025 11:35:25 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN P6_1.3.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE P6_1.3.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000 7CA3              1     MOV R4,#0A3H
+0002 75D010            2     MOV PSW,#10H
+0005 7BE2              3     MOV R3,#0E2H
+                       4     
+0007 7804              5     MOV R0,#04H
+0009 7913              6     MOV R1,#13H
+000B E6                7     MOV A,@R0
+000C 87F0              8     MOV B,@R1
+000E A6F0              9     MOV @R0,B
+0010 F7               10     MOV @R1,A
+                      11     END
+A51 MACRO ASSEMBLER  P6_1_3                                                               10/07/2025 11:35:25 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+PSW. . . . . . . .  D ADDR   00D0H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

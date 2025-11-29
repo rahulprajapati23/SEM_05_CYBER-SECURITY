@@ -1,0 +1,19 @@
+MOV R4,#87H         
+MOV PSW,#10H        
+MOV R3,#65H         
+MOV PSW,#00H        
+
+MOV A,R4            
+MOV DPTR,#0100H     
+MOVX @DPTR,A        
+					
+MOV PSW,#10H        
+MOV A,R3            
+MOV PSW,#00H        
+MOV R4,A            
+
+MOV DPTR,#0100H     
+MOVX A,@DPTR        
+MOV PSW,#10H        
+MOV R3,A            
+END

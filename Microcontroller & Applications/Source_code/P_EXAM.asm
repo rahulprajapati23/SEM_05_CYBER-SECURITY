@@ -1,0 +1,27 @@
+# ORG 2500H
+# DB 25H,A2H,56H,73H,C2H,D1H,13H,80H,31H,46H
+# ORG 0000H
+	   LXI H,2500
+	   MVI C,0A
+	   LXI D,2600
+
+LABEL:	   MOV A,M
+	   ANI 01
+	   JZ EVEN
+	   INX H
+	   DCR C
+	   MOV A,C
+	   CPI 00
+	   JZ STOP
+	   JMP LABEL
+
+EVEN:	   MOV A,M
+	   STAX D
+	   INX H
+	   INX D
+	   DCR C
+	   MOV A,C
+	   CPI 00
+	   JNZ LABEL
+
+STOP:	   HLT

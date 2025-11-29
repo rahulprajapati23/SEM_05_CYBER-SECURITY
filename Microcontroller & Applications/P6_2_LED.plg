@@ -1,0 +1,267 @@
+<html>
+<body>
+<pre>
+<h1>µVision3 Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Hp\OneDrive\Desktop\SEM_05\Microcontroller & Applications\8051\test.uv2
+Project File Date:  09/30/2025
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling P6_2...
+P6_2(2): error A4: BAD INDIRECT REGISTER
+P6_2(2): error A9: SYNTAX ERROR
+compiling P6_2_led.c...
+Target not created
+Build target 'Target 1'
+assembling P6_2...
+P6_2(2): error A4: BAD INDIRECT REGISTER
+P6_2(2): error A9: SYNTAX ERROR
+Target not created
+Build target 'Target 1'
+assembling STARTUP.A51...
+assembling test1.asm...
+test1.asm(7): warning A41: MISSING 'END' STATEMENT
+assembling swap.asm...
+assembling P6_2...
+P6_2(2): error A4: BAD INDIRECT REGISTER
+P6_2(2): error A9: SYNTAX ERROR
+P6_2(2): warning A41: MISSING 'END' STATEMENT
+compiling P6_2_led.c...
+Target not created
+Build target 'Target 1'
+assembling P6_2...
+P6_2(2): error A4: BAD INDIRECT REGISTER
+P6_2(2): error A9: SYNTAX ERROR
+P6_2(2): warning A41: MISSING 'END' STATEMENT
+Target not created
+Build target 'Target 1'
+assembling P6_2...
+P6_2(2): error A4: BAD INDIRECT REGISTER
+P6_2(2): error A9: SYNTAX ERROR
+Target not created
+Build target 'Target 1'
+assembling P6_2...
+linking...
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0002H
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+Program Size: data=9.0 xdata=0 code=125
+creating hex file from "..\P6_2_LED"...
+"..\P6_2_LED" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0002H
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+Program Size: data=9.0 xdata=0 code=125
+creating hex file from "..\P6_2_LED"...
+"..\P6_2_LED" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+assembling P6_2...
+linking...
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0002H
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+Program Size: data=9.0 xdata=0 code=125
+creating hex file from "..\P6_2_LED"...
+"..\P6_2_LED" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0002H
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+Program Size: data=9.0 xdata=0 code=125
+creating hex file from "..\P6_2_LED"...
+"..\P6_2_LED" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0002H
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+Program Size: data=9.0 xdata=0 code=125
+creating hex file from "..\P6_2_LED"...
+"..\P6_2_LED" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0002H
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+Program Size: data=9.0 xdata=0 code=125
+creating hex file from "..\P6_2_LED"...
+"..\P6_2_LED" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0002H
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+Program Size: data=9.0 xdata=0 code=125
+creating hex file from "..\P6_2_LED"...
+"..\P6_2_LED" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+assembling P6_2...
+assembling P6_1.1.asm...
+linking...
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0002H
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+Program Size: data=9.0 xdata=0 code=128
+creating hex file from "..\P6_2_LED"...
+"..\P6_2_LED" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0002H
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+Program Size: data=9.0 xdata=0 code=128
+creating hex file from "..\P6_2_LED"...
+"..\P6_2_LED" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+assembling test1.asm...
+test1.asm(7): warning A41: MISSING 'END' STATEMENT
+assembling swap.asm...
+assembling P6_2...
+compiling P6_2_led.c...
+assembling P6_1.1.asm...
+linking...
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0002H
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+Program Size: data=9.0 xdata=0 code=128
+creating hex file from "..\P6_2_LED"...
+"..\P6_2_LED" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+assembling test1.asm...
+test1.asm(7): warning A41: MISSING 'END' STATEMENT
+assembling swap.asm...
+assembling P6_2...
+compiling P6_2_led.c...
+assembling P6_1.1.asm...
+linking...
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0002H
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+Program Size: data=9.0 xdata=0 code=128
+creating hex file from "..\P6_2_LED"...
+"..\P6_2_LED" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+assembling test1.asm...
+test1.asm(7): warning A41: MISSING 'END' STATEMENT
+assembling swap.asm...
+assembling P6_2...
+compiling P6_2_led.c...
+assembling P6_1.1.asm...
+linking...
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0002H
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+Program Size: data=9.0 xdata=0 code=128
+creating hex file from "..\P6_2_LED"...
+"..\P6_2_LED" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0002H
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      000BH
+Program Size: data=9.0 xdata=0 code=128
+creating hex file from "..\P6_2_LED"...
+"..\P6_2_LED" - 0 Error(s), 4 Warning(s).

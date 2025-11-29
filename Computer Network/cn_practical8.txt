@@ -1,0 +1,59 @@
+distance 110          
+no router ospf 1 ///// for reset
+
+PRACTICAL 8
+
+
+
+r1: 192.20.10.1
+enable
+conf t
+do show ip interface brief
+do show ip protocols
+router ospf <process id between 1-65535>
+network 192.20.10.0   \0.0.0.255 <wild card bits>\ area 0 //backbone network//
+network 10.0.0.0 0.255.255.255 area 0
+network 30.0.0.0 0.255.255.255 area 0
+
+do show ip ospf neighbor
+do show ip route
+
+r2: 192.20.20.1
+enable
+conf t
+do show ip interface brief
+do show ip protocols
+router ospf <process id between 1-65535>
+network 192.20.20.0   \0.0.0.255 <wild card bits>\ area 0 //backbone network//
+network 10.0.0.0 0.255.255.255 area 0
+network 20.0.0.0 0.255.255.255 area 0
+
+do show ip ospf neighbor
+do show ip route
+
+r3: 192.20.30.1
+enable
+conf t
+do show ip interface brief
+do show ip protocols
+router ospf <process id between 1-65535>
+network 192.20.30.0   \0.0.0.255 <wild card bits>\ area 0 //backbone network//
+network 20.0.0.0 0.255.255.255 area 0
+network 30.0.0.0 0.255.255.255 area 0
+
+do show ip ospf neighbor
+do show ip route
+
+SS_Required:-
+
+PC IP
+ROUTER IP 
+IP ROUTE 
+DO SHOW RUN
+
+_____________________________________________________________________________________________________________________
+
+DO SHOW INTERFACE s0/0/1
+DO SHOW IP OSPF S0/0/1 ; OSPF COST=XX
+DO SHOW IP OSPF G0/0/0 ; OSPF COST=XX <NOT INTEGER>
+ 

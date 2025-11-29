@@ -1,0 +1,30 @@
+A51 MACRO ASSEMBLER  SWAP                                                                 10/02/2025 12:33:37 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN swap.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE swap.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000 75D018            1     MOV PSW,#18H
+0003 7C32              2     MOV R4,#32H
+0005 EC                3     MOV A,R4
+0006 75D010            4     MOV PSW,#10H
+0009 FB                5     MOV R3,A
+                       6     END
+A51 MACRO ASSEMBLER  SWAP                                                                 10/02/2025 12:33:37 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+PSW. . . . . . . .  D ADDR   00D0H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

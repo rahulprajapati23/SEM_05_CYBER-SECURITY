@@ -1,0 +1,190 @@
+BL51 BANKED LINKER/LOCATER V6.15                                                        10/08/2025  23:27:21  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.15, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE STARTUP.obj, P7_LED.obj TO P7_LED
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  STARTUP.obj (?C_STARTUP)
+  P7_LED.obj (P7_LED)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?COPY)
+
+
+LINK MAP OF MODULE:  P7_LED (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0024H     UNIT         _DATA_GROUP_
+            IDATA   002CH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     00F6H     UNIT         ?C?LIB_CODE
+            CODE    08F6H     0079H     UNIT         ?PR?MAIN?P7_LED
+            CODE    096FH     002EH     UNIT         ?PR?_GET_HEX?P7_LED
+            CODE    099DH     0026H     UNIT         ?CO?P7_LED
+            CODE    09C3H     0024H     UNIT         ?PR?_SELECT_DIG?P7_LED
+            CODE    09E7H     001DH     UNIT         ?PR?DELAY?P7_LED
+            CODE    0A04H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   P7_LED (?C_STARTUP)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?P7_LED
+
+?PR?MAIN?P7_LED                0008H    000EH
+  +--> ?CO?P7_LED
+  +--> ?PR?_SELECT_DIG?P7_LED
+  +--> ?PR?_GET_HEX?P7_LED
+  +--> ?PR?DELAY?P7_LED
+
+?PR?_SELECT_DIG?P7_LED         0016H    000CH
+  +--> ?CO?P7_LED
+
+?PR?_GET_HEX?P7_LED            0016H    0016H
+  +--> ?CO?P7_LED
+
+BL51 BANKED LINKER/LOCATER V6.15                                                      10/08/2025  23:27:21  PAGE 2
+
+
+
+
+SYMBOL TABLE OF MODULE:  P7_LED (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:0A04H         SEGMENT       ?C_C51STARTUP
+  I:002CH         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:0A07H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:0A04H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:0A04H         LINE#         133
+  C:0A06H         LINE#         134
+  C:0A07H         LINE#         135
+  C:0A08H         LINE#         136
+  C:0A0AH         LINE#         185
+  C:0A0DH         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        P7_LED
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  C:09E7H         PUBLIC        delay
+  C:09C3H         PUBLIC        _select_dig
+  C:08F6H         PUBLIC        main
+  C:099DH         SYMBOL        _?ix1000
+  C:09A7H         SYMBOL        _?ix1001
+  C:09BBH         SYMBOL        _?ix1002
+  C:0979H         PUBLIC        _get_hex
+  -------         PROC          DELAY
+  -------         DO            
+  D:0006H         SYMBOL        i
+  D:0004H         SYMBOL        j
+  -------         ENDDO         
+BL51 BANKED LINKER/LOCATER V6.15                                                      10/08/2025  23:27:21  PAGE 3
+
+
+  C:09E7H         LINE#         3
+  C:09E7H         LINE#         5
+  C:09EAH         LINE#         6
+  C:09EDH         LINE#         7
+  C:09F8H         LINE#         8
+  C:0A03H         LINE#         9
+  -------         ENDPROC       DELAY
+  -------         PROC          _SELECT_DIG
+  D:0016H         SYMBOL        led_no
+  -------         DO            
+  D:0018H         SYMBOL        num
+  -------         ENDDO         
+  C:09C3H         LINE#         11
+  C:09C7H         LINE#         12
+  C:09DAH         LINE#         13
+  C:09E6H         LINE#         14
+  -------         ENDPROC       _SELECT_DIG
+  -------         PROC          L?0025
+  -------         ENDPROC       L?0025
+  -------         PROC          _GET_HEX
+  D:0016H         SYMBOL        led_no
+  -------         DO            
+  D:0018H         SYMBOL        num
+  -------         ENDDO         
+  C:0979H         LINE#         16
+  C:097DH         LINE#         17
+  C:0990H         LINE#         18
+  C:099CH         LINE#         19
+  -------         ENDPROC       _GET_HEX
+  -------         PROC          MAIN
+  -------         DO            
+  D:0008H         SYMBOL        led_no
+  D:0010H         SYMBOL        k
+  D:0012H         SYMBOL        f
+  D:0014H         SYMBOL        i
+  -------         ENDDO         
+  C:08F6H         LINE#         21
+  C:08F6H         LINE#         22
+  C:0909H         LINE#         24
+  C:090EH         LINE#         26
+  C:0913H         LINE#         27
+  C:091CH         LINE#         28
+  C:0923H         LINE#         29
+  C:0926H         LINE#         31
+  C:0939H         LINE#         32
+  C:094CH         LINE#         33
+  C:0951H         LINE#         34
+  C:0954H         LINE#         35
+  C:095BH         LINE#         36
+  C:096EH         LINE#         37
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        P7_LED
+
+  -------         MODULE        ?C?COPY
+  C:08D0H         PUBLIC        ?C?COPY
+  -------         ENDMOD        ?C?COPY
+
+BL51 BANKED LINKER/LOCATER V6.15                                                      10/08/2025  23:27:21  PAGE 4
+
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 011DH BYTE (13%) *
+******************************************************************************
+
+Program Size: data=45.0 xdata=0 code=531
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard – IAM Demo Shop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Keycloak JS -->
+  <script src="https://cdn.jsdelivr.net/npm/keycloak-js@latest/dist/keycloak.min.js"></script>
+
+  <!-- Basic reset + layout (inline so this page is standalone) -->
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0b1020;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.2);
+      --danger: #fb7185;
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-soft: rgba(148, 163, 184, 0.3);
+      --radius-lg: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1d2340 0, #020617 40%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 55%),
+                  rgba(15, 23, 42, 0.95);
+      border: 1px solid var(--border-soft);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
+      background: radial-gradient(circle at 30% 0, #e0f2fe, #0ea5e9);
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.6);
+    }
+
+    .brand-text-main {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      font-size: 15px;
+    }
+
+    .brand-text-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .role-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      font-size: 11px;
+      color: #bbf7d0;
+    }
+
+    .user-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 12px;
+    }
+
+    .user-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #022c22;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-size: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      transition: all 0.15s ease-out;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-main);
+      border: 1px solid var(--border-soft);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .btn-danger {
+      background: rgba(248, 113, 113, 0.18);
+      color: #fecaca;
+      border: 1px solid rgba(248, 113, 113, 0.7);
+    }
+
+    .btn-danger:hover {
+      background: rgba(248, 113, 113, 0.28);
+      transform: translateY(-1px);
+      box-shadow: 0 0 18px rgba(248, 113, 113, 0.35);
+    }
+
+    .layout-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 20px;
+      flex: 1;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 16px 18px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #e0f2fe;
+      border: 1px solid rgba(56, 189, 248, 0.5);
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .stat {
+      padding: 10px 11px;
+      border-radius: 14px;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.13), transparent 60%),
+                  rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      font-size: 11px;
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .stat-chip {
+      font-size: 11px;
+      color: #a5b4fc;
+      margin-top: 2px;
+    }
+
+    .logs {
+      margin-top: 10px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px dashed rgba(148, 163, 184, 0.45);
+      padding: 10px 11px;
+      max-height: 200px;
+      overflow-y: auto;
+      font-size: 11px;
+    }
+
+    .log-line {
+      padding: 4px 0;
+      color: var(--text-muted);
+      border-bottom: 1px dashed rgba(51, 65, 85, 0.6);
+    }
+
+    .log-line:last-child {
+      border-bottom: none;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .small-pill {
+      font-size: 11px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--text-muted);
+    }
+
+    .small-pill.accent {
+      background: rgba(56, 189, 248, 0.18);
+      color: #e0f2fe;
+      border-color: rgba(56, 189, 248, 0.7);
+    }
+
+    .danger-pill {
+      background: rgba(248, 113, 113, 0.16);
+      color: #fecaca;
+      border-color: rgba(248, 113, 113, 0.7);
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 11px;
+    }
+
+    .table th,
+    .table td {
+      padding: 7px 6px;
+      text-align: left;
+      border-bottom: 1px solid rgba(30, 41, 59, 0.85);
+    }
+
+    .table th {
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 11px;
+    }
+
+    .table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .status-pill {
+      padding: 3px 7px;
+      border-radius: 999px;
+      font-size: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-pill.ok {
+      background: rgba(34, 197, 94, 0.18);
+      color: #bbf7d0;
+      border: 1px solid rgba(34, 197, 94, 0.6);
+    }
+
+    .status-pill.warn {
+      background: rgba(250, 204, 21, 0.16);
+      color: #fef08a;
+      border: 1px solid rgba(250, 204, 21, 0.6);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: currentColor;
+    }
+
+    .footer-text {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 16px;
+      }
+
+      .layout-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .user-info {
+        align-self: flex-end;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top bar -->
+  <header class="top-bar">
+    <div class="brand">
+      <div class="brand-logo">AD</div>
+      <div>
+        <div class="brand-text-main">Admin Dashboard</div>
+        <div class="brand-text-sub">Keycloak protected • realm role: admin</div>
+      </div>
+    </div>
+
+    <div class="user-info">
+      <span class="role-pill">ADMIN ROLE ACTIVE</span>
+      <div class="user-chip">
+        <div id="user-avatar" class="user-avatar">A</div>
+        <div>
+          <div id="user-name-text">Admin</div>
+          <div id="user-email-text" style="font-size: 10px; color: var(--text-muted);">
+            loading…
+          </div>
+        </div>
+      </div>
+      <button id="backToShop" class="btn btn-ghost" type="button">
+        ← Back to shop
+      </button>
+      <button id="logoutBtn" class="btn btn-danger" type="button">
+        Logout
+      </button>
+    </div>
+  </header>
+
+  <!-- Main layout -->
+  <main class="layout-grid">
+    <!-- Left: metrics + logs -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">
+          🔐 Security Overview
+          <span class="card-badge">Keycloak session live</span>
+        </div>
+      </div>
+      <p class="card-subtitle">
+        High-level IAM metrics for your demo e-commerce environment.
+        Perfect to talk about in viva: just explain what each box means.
+      </p>
+
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-label">Total users (realm)</div>
+          <div class="stat-value">2</div>
+          <div class="stat-chip">demo-user • demo-admin</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Active session (this browser)</div>
+          <div class="stat-value">1</div>
+          <div class="stat-chip">Keycloak SSO session</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Enforced factors</div>
+          <div class="stat-value">2</div>
+          <div class="stat-chip">Password + TOTP</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center;">
+        <div class="tag">
+          <span class="tag-dot"></span>
+          <span id="session-status-text">Session valid • token not inspected yet</span>
+        </div>
+        <button id="inspectTokenBtn" class="btn btn-ghost" type="button">
+          🔎 Print token to console
+        </button>
+      </div>
+
+      <div class="logs" id="admin-logs">
+        <div class="log-line">[info] Admin dashboard initialized…</div>
+        <div class="log-line">[info] Waiting for Keycloak to confirm authentication…</div>
+      </div>
+    </section>
+
+    <!-- Right: users / roles table -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">
+          👥 Users &amp; Roles
+        </div>
+      </div>
+      <p class="card-subtitle">
+        This is a fake overview, but it helps you explain realm roles and RBAC
+        using your <strong>demo-ecommerce</strong> realm configuration.
+      </p>
+
+      <div class="pill-row">
+        <span class="small-pill accent">Realm: demo-ecommerce</span>
+        <span class="small-pill">Roles: customer, admin</span>
+        <span class="small-pill danger-pill">Admin can view this page</span>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Realm roles</th>
+            <th>MFA</th>
+            <th>Access</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>demo-admin</td>
+            <td>
+              <span class="small-pill accent">admin</span>
+            </td>
+            <td>
+              <span class="status-pill ok">
+                <span class="status-dot"></span>
+                TOTP enabled
+              </span>
+            </td>
+            <td>
+              <span class="status-pill ok">
+                <span class="status-dot"></span>
+                Full admin
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>demo-user</td>
+            <td>
+              <span class="small-pill">customer</span>
+            </td>
+            <td>
+              <span class="status-pill warn">
+                <span class="status-dot"></span>
+                Optional
+              </span>
+            </td>
+            <td>
+              <span class="status-pill warn">
+                <span class="status-dot"></span>
+                No admin dashboard
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <p class="footer-text">
+    This page is protected in the browser using Keycloak JS – if the user is not
+    authenticated or doesn’t have the <strong>admin</strong> realm role, they are redirected
+    to denied.html.
+  </p>
+
+  <script>
+    const adminLogs = document.getElementById("admin-logs");
+    const sessionStatusEl = document.getElementById("session-status-text");
+    const userNameText = document.getElementById("user-name-text");
+    const userEmailText = document.getElementById("user-email-text");
+    const userAvatar = document.getElementById("user-avatar");
+    const inspectTokenBtn = document.getElementById("inspectTokenBtn");
+    const backToShopBtn = document.getElementById("backToShop");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    function addLog(message) {
+      const line = document.createElement("div");
+      line.className = "log-line";
+      const ts = new Date().toLocaleTimeString();
+      line.textContent = "[" + ts + "] " + message;
+      adminLogs.appendChild(line);
+      adminLogs.scrollTop = adminLogs.scrollHeight;
+    }
+
+    const keycloak = new Keycloak({
+      url: "http://localhost:8080/",
+      realm: "demo-ecommerce",
+      clientId: "ecommerce-frontend"
+    });
+
+    keycloak
+      .init({ onLoad: "check-sso" })
+      .then((auth) => {
+        if (!auth) {
+          addLog("User not authenticated – redirecting to denied.html");
+          window.location.href = "/frontend/pages/denied.html";
+          return;
+        }
+
+        if (!keycloak.hasRealmRole("admin")) {
+          addLog("User is authenticated but missing 'admin' role – redirecting.");
+          window.location.href = "/frontend/pages/denied.html";
+          return;
+        }
+
+        // Auth + admin role OK
+        addLog("Admin authenticated via Keycloak. Realm role 'admin' confirmed.");
+
+        const tokenParsed = keycloak.tokenParsed || {};
+        const username =
+          tokenParsed.preferred_username ||
+          tokenParsed.name ||
+          "admin";
+        const email =
+          tokenParsed.email || "no-email@example.com";
+
+        userNameText.textContent = username;
+        userEmailText.textContent = email;
+        userAvatar.textContent = (username[0] || "A").toUpperCase();
+
+        sessionStatusEl.textContent = "Session valid • token exp: " +
+          (tokenParsed.exp ? new Date(tokenParsed.exp * 1000).toLocaleTimeString() : "unknown");
+      })
+      .catch((err) => {
+        console.error("Keycloak init error on admin page", err);
+        addLog("Error initializing Keycloak – redirecting to denied.html");
+        window.location.href = "/frontend/pages/denied.html";
+      });
+
+    inspectTokenBtn.addEventListener("click", () => {
+      addLog("Printing token + decoded payload to browser console.");
+      console.log("Raw token:", keycloak.token);
+      console.log("Decoded token:", keycloak.tokenParsed);
+    });
+
+    backToShopBtn.addEventListener("click", () => {
+      window.location.href = "/index.html";
+    });
+
+    logoutBtn.addEventListener("click", () => {
+      addLog("Logging out from Keycloak session…");
+      keycloak.logout({
+        redirectUri: "http://localhost:3000/index.html"
+      });
+    });
+  </script>
+</body>
+</html>

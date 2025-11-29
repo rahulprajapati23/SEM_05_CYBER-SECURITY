@@ -1,0 +1,20 @@
+ORG 0000H
+START:  MOV A, P1
+        MOV R2, #08H
+
+LOOPT:  RRC A
+        ACALL DELAY
+        MOV P2.0, C
+        DJNZ R2, LOOPT
+        SJMP START
+
+ORG 0500H
+DELAY:  MOV R3, #1EH
+LOOP1:  MOV R4, #1EH
+LOOP2:  MOV R5, #0FEH
+LOOP3:  DJNZ R5, LOOP3
+        DJNZ R4, LOOP2
+        DJNZ R3, LOOP1
+        RET
+
+END
