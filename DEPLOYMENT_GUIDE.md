@@ -185,3 +185,26 @@ If you enabled the password code in `streamlit_app.py`:
     git commit -m "Fix missing files"
     git push
     ```
+
+---
+
+## Step 5: Updating Your Website
+
+Whenever you make changes to your files (add new files, edit code, etc.) on your computer, follow these 3 commands to update your live website:
+
+1.  **Add changes**:
+    ```bash
+    git add .
+    ```
+2.  **Save changes (Commit)**:
+    ```bash
+    git commit -m "Description of what you changed"
+    ```
+3.  **Upload (Push)**:
+    ```bash
+    git push
+    ```
+
+Streamlit Cloud will detect the new code and automatically update your website in about 1-2 minutes.
+
+> **Note:** This same process applies if you **move**, **rename**, or **delete** files. Git will detect the changes when you run `git add .`.
