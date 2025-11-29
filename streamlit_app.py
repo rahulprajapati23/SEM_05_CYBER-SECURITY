@@ -60,11 +60,16 @@ def main():
     st.markdown(f"### 📍 Current Path: `{display_path}`")
 
     # Navigation controls
-    col1, col2 = st.columns([1, 5])
+    col1, col2, col3 = st.columns([1, 1, 4])
     
     with col1:
+        if st.button("🏠 Home"):
+            st.session_state.current_path = base_dir
+            st.rerun()
+            
+    with col2:
         if st.session_state.current_path != base_dir:
-            if st.button("⬅️ Go Back"):
+            if st.button("⬅️ Back"):
                 st.session_state.current_path = os.path.dirname(st.session_state.current_path)
                 st.rerun()
 
@@ -92,14 +97,19 @@ def main():
     dirs.sort()
     files.sort()
 
+    if not dirs and not files:
+        st.info("This folder is empty.")
+
     # Display Directories
     if dirs:
         st.subheader("📁 Folders")
         cols = st.columns(4)
         for i, d in enumerate(dirs):
             with cols[i % 4]:
-                if st.button(f"📂 {d}", key=f"dir_{d}"):
-                    st.session_state.current_path = os.path.join(st.session_state.current_path, d)
+                # Use full path hash for unique key to prevent collisions
+                full_dir_path = os.path.join(st.session_state.current_path, d)
+                if st.button(f"📂 {d}", key=f"dir_{abs(hash(full_dir_path))}"):
+                    st.session_state.current_path = full_dir_path
                     st.rerun()
 
     # Display Files
@@ -129,7 +139,10 @@ def main():
                     st.image(file_path)
                     
                 elif ext in ['.pdf']:
-                    st.info("PDF preview not supported directly. Please download to view.")
+                    # Embed PDF using base64
+                    base64_pdf = get_file_content_as_base64(file_path)
+                    pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="800" type="application/pdf"></iframe>'
+                    st.markdown(pdf_display, unsafe_allow_html=True)
                     
                 else:
                     st.warning("File type not supported for direct preview.")
