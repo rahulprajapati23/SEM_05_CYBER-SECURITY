@@ -49,6 +49,24 @@ def inject_guest_css():
         /* Attempt to disable right-click context menu (not foolproof in all browsers via CSS, but helps) */
         /* Note: JS is better for this, but Streamlit allows limited JS injection via components. 
            We will use a simple overlay or just rely on the user-select for now as a deterrent. */
+        
+        /* Hide Streamlit Toolbar and Footer for Guests */
+        [data-testid="stToolbar"] {
+            visibility: hidden;
+            height: 0%;
+        }
+        footer {
+            visibility: hidden;
+            height: 0%;
+        }
+        #MainMenu {
+            visibility: hidden;
+            height: 0%;
+        }
+        header {
+            visibility: hidden;
+            height: 0%;
+        }
         </style>
         <script>
         document.addEventListener('contextmenu', event => event.preventDefault());
@@ -143,8 +161,13 @@ def main():
     dirs = []
     files = []
     for item in items:
-        # Skip hidden files/dirs
-        if item.startswith(".") or item == "__pycache__" or item == "streamlit_app.py":
+        # Skip hidden files/dirs and sensitive configuration
+        if (item.startswith(".") or 
+            item == "__pycache__" or 
+            item == "streamlit_app.py" or 
+            item == "requirements.txt" or 
+            item == "DEPLOYMENT_GUIDE.md" or
+            item == "secrets.toml"):
             continue
             
         full_path = os.path.join(st.session_state.current_path, item)
