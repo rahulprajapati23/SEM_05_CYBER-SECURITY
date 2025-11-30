@@ -7,8 +7,13 @@ def check_password():
 
     def password_entered():
         """Checks whether a password entered by the user is correct."""
-        if st.session_state["password"] == st.secrets["password"]:
+        if st.session_state["password"] == st.secrets["root_password"]:
             st.session_state["password_correct"] = True
+            st.session_state["user_role"] = "root"
+            del st.session_state["password"]  # don't store password
+        elif st.session_state["password"] == st.secrets["guest_password"]:
+            st.session_state["password_correct"] = True
+            st.session_state["user_role"] = "guest"
             del st.session_state["password"]  # don't store password
         else:
             st.session_state["password_correct"] = False
@@ -30,6 +35,56 @@ def check_password():
         # Password correct.
         return True
 
+def inject_guest_css():
+    """Injects CSS to restrict copy/paste and right-click for guest users."""
+    st.markdown(
+        """
+        <style>
+        /* Disable text selection */
+        body {
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+        /* Attempt to disable right-click context menu (not foolproof in all browsers via CSS, but helps) */
+        /* Note: JS is better for this, but Streamlit allows limited JS injection via components. 
+           We will use a simple overlay or just rely on the user-select for now as a deterrent. */
+        </style>
+        <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        </script>
+        """,
+        unsafe_allow_html=True
+    )
+    # Note: Streamlit's st.markdown with unsafe_allow_html=True allows <script> tags but they might not execute 
+    # as expected in all contexts due to iframe sandboxing or re-renders. 
+    # A better approach for right-click disable in Streamlit is often just CSS overlays or accepting it's "best effort".
+    # We will try to inject a script tag that disables context menu.
+    
+    st.components.v1.html(
+        """
+        <script>
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        document.addEventListener('keydown', function(e) {
+            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            if (e.keyCode == 123) { // F12
+                e.preventDefault();
+            }
+            if (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) { // Ctrl+Shift+I/J
+                e.preventDefault();
+            }
+            if (e.ctrlKey && e.keyCode == 85) { // Ctrl+U
+                e.preventDefault();
+            }
+        });
+        </script>
+        """,
+        height=0,
+        width=0,
+    )
+
 def get_file_content_as_base64(path):
     with open(path, "rb") as f:
         data = f.read()
@@ -40,6 +95,10 @@ def main():
     
     if not check_password():
         st.stop()
+
+    # Inject Guest CSS if applicable
+    if st.session_state.get("user_role") == "guest":
+        inject_guest_css()
 
     st.title("📂 SEM_05 File Explorer")
 
@@ -126,18 +185,21 @@ def main():
             st.markdown("---")
             st.header(f"📄 {selected_file}")
             
-            # Download button (Top priority)
-            try:
-                with open(file_path, "rb") as f:
-                    file_bytes = f.read()
-                st.download_button(
-                    label=f"⬇️ Download {selected_file}",
-                    data=file_bytes,
-                    file_name=selected_file,
-                    mime="application/octet-stream"
-                )
-            except Exception as e:
-                st.error(f"Error preparing download: {e}")
+            # Download button (Only for Root)
+            if st.session_state.get("user_role") == "root":
+                try:
+                    with open(file_path, "rb") as f:
+                        file_bytes = f.read()
+                    st.download_button(
+                        label=f"⬇️ Download {selected_file}",
+                        data=file_bytes,
+                        file_name=selected_file,
+                        mime="application/octet-stream"
+                    )
+                except Exception as e:
+                    st.error(f"Error preparing download: {e}")
+            elif st.session_state.get("user_role") == "guest":
+                st.info("🔒 Download disabled for guest users.")
 
             # Determine file extension
             _, ext = os.path.splitext(file_path)
