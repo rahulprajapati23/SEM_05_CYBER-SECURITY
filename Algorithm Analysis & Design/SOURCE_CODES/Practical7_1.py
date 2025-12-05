@@ -25,8 +25,8 @@ def lcs(P, Q):
 	lcs_seq.reverse()
 	return lcs_seq
 
-P = ['M', 'N', 'o', 'M']
-Q = ['M', 'L', 'N', '0', 'M']
+P = ['M', 'N', 'O', 'M']
+Q = ['M', 'L', 'N', 'O', 'M']
 
 result = lcs(P, Q)
 

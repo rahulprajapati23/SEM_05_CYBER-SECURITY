@@ -1,52 +1,79 @@
 import heapq
 
-def build_huffman_tree(chars, freqs):
+def make_node(freq, order, char=None, left=None, right=None):
+    return (freq, order, char, left, right)
+
+def build_huffman(chars_freq):
     heap = []
-    for c, f in zip(chars, freqs):
-        heapq.heappush(heap, (f, c, None, None))
+    order = 0
+
+    for ch, f in chars_freq.items():
+        heapq.heappush(heap, make_node(f, order, ch))
+        order += 1
+
     while len(heap) > 1:
-        f1, c1, l1, r1 = heapq.heappop(heap)
-        f2, c2, l2, r2 = heapq.heappop(heap)
-        new_node = (f1 + f2, None, (f1, c1, l1, r1), (f2, c2, l2, r2))
-        heapq.heappush(heap, new_node)
+        a = heapq.heappop(heap)
+        b = heapq.heappop(heap)
+
+        f = a[0] + b[0]
+        merged = make_node(f, order, None, a, b)
+        order += 1
+
+        heapq.heappush(heap, merged)
+
     return heap[0]
 
-def generate_codes(node, code="", codes=None):
-    if codes is None:
-        codes = {}
-    freq, char, left, right = node
-    if char is not None:
-        codes[char] = code
-        return codes
-    generate_codes(left, code + "0", codes)
-    generate_codes(right, code + "1", codes)
+
+def generate_codes(root):
+    codes = {}
+
+    def dfs(node, prefix):
+        freq, order, char, left, right = node
+
+        if char is not None:
+            codes[char] = prefix or "0"
+            return
+        
+        dfs(left, prefix + "0")
+        dfs(right, prefix + "1")
+
+    dfs(root, "")
     return codes
 
-def encode_text(text, codes):
+
+def encode(text, codes):
     return "".join(codes[ch] for ch in text)
 
-def decode_text(encoded, root):
+
+def decode(bits, root):
     decoded = ""
     node = root
-    for bit in encoded:
-        freq, char, left, right = node
-        node = left if bit == "0" else right
-        f, c, l, r = node
+
+    for b in bits:
+        freq, order, char, left, right = node
+
+        node = left if b == "0" else right
+        f, o, c, l, r = node
+
         if c is not None:
             decoded += c
             node = root
+
     return decoded
 
-characters = ['A', 'B', 'C', 'D', 'E', '-']
-frequencies = [0.5, 0.35, 0.5, 0.1, 0.4, 0.2]
+chars_freq = {'A':0.5, 'B':0.35, 'C':0.5, 'D':0.1, 'E':0.4, '-':0.2}
 
-root = build_huffman_tree(characters, frequencies)
+root = build_huffman(chars_freq)
 codes = generate_codes(root)
-print("Huffman Codes:", codes)
 
-text = "CAD-BE"
-encoded = encode_text(text, codes)
-print("Encoded:", encoded)
+print("Generated Huffman Codes →", codes)
 
-decoded = decode_text(encoded, root)
-print("Decoded:", decoded)
+print("\n--- Encoding Section ---")
+text1 = "CAD-BE"
+print("Given Text :", text1)
+print("Encoded As :", encode(text1, codes))
+
+print("\n--- Decoding Section ---")
+text2 = "0011011100011100"
+print("Bitstream  :", text2)
+print("Decoded As :", decode(text2, root))
