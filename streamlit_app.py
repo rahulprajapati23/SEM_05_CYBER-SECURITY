@@ -160,15 +160,26 @@ def main():
     # Separate directories and files
     dirs = []
     files = []
+    
+    # Files related to deployment/config that Guests should not see
+    DEPLOYMENT_FILES = {
+        "streamlit_app.py", 
+        "requirements.txt", 
+        "DEPLOYMENT_GUIDE.md", 
+        "secrets.toml",
+        "push_final.log",
+        "push_error.log"
+    }
+
     for item in items:
-        # Skip hidden files/dirs and sensitive configuration
-        if (item.startswith(".") or 
-            item == "__pycache__" or 
-            item == "streamlit_app.py" or 
-            item == "requirements.txt" or 
-            item == "DEPLOYMENT_GUIDE.md" or
-            item == "secrets.toml"):
+        # Always hide system/hidden files for everyone
+        if item.startswith(".") or item == "__pycache__":
             continue
+            
+        # Hide deployment files specifically for GUESTS
+        if st.session_state.get("user_role") == "guest":
+            if item in DEPLOYMENT_FILES:
+                continue
             
         full_path = os.path.join(st.session_state.current_path, item)
         if os.path.isdir(full_path):
