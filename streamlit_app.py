@@ -208,8 +208,23 @@ def main():
             st.markdown("---")
             st.header(f"📄 {selected_file}")
             
-            # Download button (Only for Root)
+            # Download button logic
+            allow_download = False
             if st.session_state.get("user_role") == "root":
+                allow_download = True
+            elif st.session_state.get("user_role") == "guest":
+                # Allow download ONLY if inside BRAHMOS/IAM
+                # Normalize paths to handle Windows backslashes
+                current_norm = os.path.normpath(st.session_state.current_path)
+                required_sub = os.path.normpath("BRAHMOS/IAM")
+                
+                # Check if "BRAHMOS\IAM" is part of the current path
+                if required_sub in current_norm:
+                    allow_download = True
+                else:
+                    st.info(f"🔒 Download restricted. Guests can only download assets from {required_sub}")
+
+            if allow_download:
                 try:
                     with open(file_path, "rb") as f:
                         file_bytes = f.read()
@@ -221,8 +236,6 @@ def main():
                     )
                 except Exception as e:
                     st.error(f"Error preparing download: {e}")
-            elif st.session_state.get("user_role") == "guest":
-                st.info("🔒 Download disabled for guest users.")
 
             # Determine file extension
             _, ext = os.path.splitext(file_path)
