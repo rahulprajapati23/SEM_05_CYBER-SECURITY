@@ -213,12 +213,12 @@ def main():
             if st.session_state.get("user_role") == "root":
                 allow_download = True
             elif st.session_state.get("user_role") == "guest":
-                # Allow download ONLY if inside BRAHMOS/IAM
+                # Allow download ONLY if inside BRAHMOS (and subfolders)
                 # Normalize paths to handle Windows backslashes
                 current_norm = os.path.normpath(st.session_state.current_path)
-                required_sub = os.path.normpath("BRAHMOS/IAM")
+                required_sub = os.path.normpath("BRAHMOS")
                 
-                # Check if "BRAHMOS\IAM" is part of the current path
+                # Check if "BRAHMOS" is part of the current path
                 if required_sub in current_norm:
                     allow_download = True
                 else:
