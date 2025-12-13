@@ -254,7 +254,7 @@ def main():
             
             # Display content based on file type
             try:
-                if ext in ['.py', '.c', '.cpp', '.java', '.js', '.html', '.css', '.txt', '.md', '.json', '.xml']:
+                if ext in ['.py', '.c', '.cpp', '.java', '.js', '.html', '.css', '.txt', '.md', '.json', '.xml', '.asm']:
                     with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
                         content = f.read()
                     st.code(content, language=ext[1:] if ext.startswith('.') else ext)
