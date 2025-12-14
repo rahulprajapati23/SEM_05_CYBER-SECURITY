@@ -140,6 +140,70 @@
                 page-break-before: always;
             }
         }
+
+        /* Mobile Responsiveness */
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 2px solid var(--border);
+                padding: 10px;
+                box-sizing: border-box;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+                box-shadow: none;
+            }
+
+            .sidebar div {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-link {
+                display: inline-block;
+                padding: 5px 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                margin: 2px;
+                font-size: 0.85rem;
+                background: #fff;
+            }
+
+            .nav-header {
+                width: 100%;
+                margin-top: 15px;
+                margin-bottom: 5px;
+                border-bottom: 1px dotted #ccc;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            h1.main-title {
+                font-size: 2rem;
+            }
+
+            h1.unit-header {
+                font-size: 1.8rem;
+                margin-top: 40px;
+            }
+
+            h2.topic-header {
+                font-size: 1.4rem;
+                padding: 10px;
+            }
+
+            body {
+                font-size: 17px;
+            }
+        }
     </style>
 </head>
 
@@ -219,7 +283,8 @@
             must be: 1. <strong>Finite</strong> (it must eventually stop), 2. <strong>Definite</strong> (each step must
             be clear and unambiguous), 3. <strong>Effective</strong> (operations must be basic enough to be done by a
             human with paper), 4. <strong>Inputs</strong> (zero or more distinct inputs), and 5.
-            <strong>Outputs</strong> (at least one output related to input).</p>
+            <strong>Outputs</strong> (at least one output related to input).
+        </p>
         <p>Analyzing algorithms means determining the amount of resources (such as time and storage) necessary to
             execute them. This theoretical study is separate from the actual running of the program on a specific
             machine. It focuses on the growth rate of resources as input size increases, rather than seconds or
@@ -282,7 +347,8 @@
         <h3 class="sub-header">Real world example</h3>
         <p><strong>GPS Navigation:</strong> The <em>Problems</em> is "Find shortest path from A to B". An
             <em>Instance</em> is "My house to the Airport today". Google Maps writes one code base to solve the general
-            Problem, which then handles billions of unique Instances daily.</p>
+            Problem, which then handles billions of unique Instances daily.
+        </p>
 
         <h3 class="sub-header">Why we choose only this rather than else</h3>
         <p>If we focused only on instances, we would hard-code solutions (e.g., a lookup table). This is impossible for
@@ -366,7 +432,8 @@
         <h3 class="sub-header">Why we choose only this rather than else</h3>
         <p>We choose <strong>Recursion</strong> for readability and complex structures (Trees). We choose
             <strong>Iteration</strong> for raw performance, memory constraints (embedded systems), and simple linear
-            tasks to avoid Stack Overflow errors.</p>
+            tasks to avoid Stack Overflow errors.
+        </p>
 
 
         <div id="u1-amort"></div>
@@ -478,7 +545,8 @@
         <h3 class="sub-header">Definition</h3>
         <p>The Master Theorem is a "cookbook" method for solving recurrences of the form
             <code>T(n) = aT(n/b) + f(n)</code>. It provides a direct template to determine asymptotic complexity by
-            comparing the rate of growth of the recursive work (leaves) vs. the combination work (root).</p>
+            comparing the rate of growth of the recursive work (leaves) vs. the combination work (root).
+        </p>
         <p>It has three cases based on comparing <code>n^{log_b(a)}</code> with <code>f(n)</code>:
             <br>1. Leaves grow faster -> Complexity is leaf-bound.
             <br>2. Rates are even -> Complexity is n * log n.
