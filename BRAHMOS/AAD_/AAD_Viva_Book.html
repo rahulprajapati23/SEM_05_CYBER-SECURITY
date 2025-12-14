@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AAD Ultimate Reference Bible</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&family=Lato:wght@400;700;900&display=swap');
+
+        :root {
+            --primary: #003366;
+            /* Oxford Blue */
+            --accent: #800020;
+            /* Burgundy */
+            --text: #2c3e50;
+            --light-bg: #fdfbf7;
+            --paper: #ffffff;
+            --border: #e1e4e8;
+        }
+
+        body {
+            font-family: 'Gentium Book Plus', serif;
+            font-size: 19px;
+            line-height: 1.8;
+            color: var(--text);
+            background-color: var(--light-bg);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            height: 100vh;
+            background: #fff;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            border-right: 1px solid var(--border);
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .main-content {
+            margin-left: 320px;
+            padding: 60px 80px;
+            max-width: 900px;
+        }
+
+        /* Typography */
+        h1.main-title {
+            font-family: 'Lato', sans-serif;
+            font-weight: 900;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-top: 0;
+            border-bottom: 5px solid var(--accent);
+            padding-bottom: 20px;
+        }
+
+        h1.unit-header {
+            font-family: 'Lato', sans-serif;
+            font-weight: 900;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-top: 80px;
+            border-bottom: 3px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        h2.topic-header {
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-top: 60px;
+            margin-bottom: 20px;
+            background: #fff0f0;
+            padding: 10px 15px;
+            border-left: 5px solid var(--accent);
+        }
+
+        h3.sub-header {
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #555;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            border-bottom: 1px dotted #ccc;
+            display: inline-block;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* Sidebar Links */
+        .nav-link {
+            display: block;
+            padding: 8px 0;
+            color: #444;
+            text-decoration: none;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+            padding-left: 5px;
+            transition: 0.2s;
+        }
+
+        .nav-header {
+            font-weight: bold;
+            color: var(--primary);
+            margin-top: 20px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        /* Print */
+        @media print {
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin: 0;
+                padding: 40px;
+            }
+
+            h2.topic-header {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="sidebar">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h2 style="margin:0; color:var(--primary);">AAD VIVA</h2>
+            <small>Semester 5</small>
+        </div>
+
+        <div class="nav-header">Unit 1: Fundamentals</div>
+        <a href="#u1-req" class="nav-link">Requirements & Why Analyze</a>
+        <a href="#u1-prob" class="nav-link">Problems vs Instances</a>
+        <a href="#u1-eff" class="nav-link">Efficiency & Complexity</a>
+        <a href="#u1-asymp" class="nav-link">Asymptotic Notation</a>
+        <a href="#u1-iter" class="nav-link">Iterative vs Recursive</a>
+        <a href="#u1-control" class="nav-link">Control Structures</a>
+        <a href="#u1-amort" class="nav-link">Amortized Analysis</a>
+        <a href="#u1-sort" class="nav-link">Sorting Analysis</a>
+
+        <div class="nav-header">Unit 2: Recurrences</div>
+        <a href="#u2-gen" class="nav-link">Generating Relations</a>
+        <a href="#u2-homo" class="nav-link">Homogeneous Recurrences</a>
+        <a href="#u2-inhomo" class="nav-link">Inhomogeneous Recurrences</a>
+        <a href="#u2-change" class="nav-link">Change of Variable</a>
+        <a href="#u2-range" class="nav-link">Range Transformations</a>
+        <a href="#u2-methods" class="nav-link">Substitution, Iteration, Tree</a>
+        <a href="#u2-master" class="nav-link">Master Theorem</a>
+
+        <div class="nav-header">Unit 3: Divide & Conquer</div>
+        <a href="#u3-char" class="nav-link">Characteristics</a>
+        <a href="#u3-bin" class="nav-link">Binary Search</a>
+        <a href="#u3-sort" class="nav-link">Merge & Quick Sort</a>
+        <a href="#u3-mat" class="nav-link">Matrix Multiplication</a>
+        <a href="#u3-inv" class="nav-link">Counting Inversions</a>
+        <a href="#u3-pair" class="nav-link">Closest Pair & MinMax</a>
+
+        <div class="nav-header">Unit 4: Greedy</div>
+        <a href="#u4-char" class="nav-link">Characteristics</a>
+        <a href="#u4-mst" class="nav-link">Kruskal & Prim</a>
+        <a href="#u4-path" class="nav-link">Shortest Path (Dijkstra)</a>
+        <a href="#u4-knap" class="nav-link">Knapsack & Scheduling</a>
+        <a href="#u4-huff" class="nav-link">Huffman Code</a>
+
+        <div class="nav-header">Unit 5: DP</div>
+        <a href="#u5-char" class="nav-link">Optimality & Memoization</a>
+        <a href="#u5-bin" class="nav-link">Binomial Coeff. & Change</a>
+        <a href="#u5-knap" class="nav-link">0/1 Knapsack</a>
+        <a href="#u5-floyd" class="nav-link">Floyd's & Matrix Chain</a>
+        <a href="#u5-lcs" class="nav-link">LCS</a>
+
+        <div class="nav-header">Unit 6: Graphs</div>
+        <a href="#u6-dag" class="nav-link">DAG & Topological Sort</a>
+        <a href="#u6-back" class="nav-link">Backtracking (Queens)</a>
+        <a href="#u6-bn-b" class="nav-link">Branch & Bound (TSP)</a>
+
+        <div class="nav-header">Unit 7: Complexity</div>
+        <a href="#u7-pnp" class="nav-link">P, NP, NP-Hard, Complete</a>
+        <a href="#u7-sat" class="nav-link">SAT & TSP</a>
+    </nav>
+
+    <div class="main-content">
+        <h1 class="main-title">Algorithm Analysis & Design</h1>
+        <p style="font-size: 1.2rem; margin-bottom: 50px;">Complete Reference Guide covering every topic from the
+            syllabus with detailed 6-point analysis.</p>
+
+        <!-- ================= UNIT 1 ================= -->
+        <h1 class="unit-header">Unit 1: Fundamentals of Algorithms</h1>
+
+        <div id="u1-req"></div>
+        <h2 class="topic-header">Requirements of Algorithms & Why Analyze</h2>
+
+        <h3 class="sub-header">Definition</h3>
+        <p>An algorithm is a formal, step-by-step procedure used for calculations, data processing, and automated
+            reasoning. It is not merely a piece of code or a vague idea; strict "Algorithm Requirements" dictate that it
+            must be: 1. <strong>Finite</strong> (it must eventually stop), 2. <strong>Definite</strong> (each step must
+            be clear and unambiguous), 3. <strong>Effective</strong> (operations must be basic enough to be done by a
+            human with paper), 4. <strong>Inputs</strong> (zero or more distinct inputs), and 5.
+            <strong>Outputs</strong> (at least one output related to input).</p>
+        <p>Analyzing algorithms means determining the amount of resources (such as time and storage) necessary to
+            execute them. This theoretical study is separate from the actual running of the program on a specific
+            machine. It focuses on the growth rate of resources as input size increases, rather than seconds or
+            milliseconds.</p>
+
+        <h3 class="sub-header">Time & Space Complexity</h3>
+        <p>Analyzing Requirements doesn't involve complexity itself, but enforcing "Finiteness" ensures that Time
+            Complexity is not infinite. Without finiteness, analysis would be impossible because the function T(n) would
+            be undefined or divergent. Efficiency analysis seeks to minimize T(n) (Time) and S(n) (Space).</p>
+
+        <h3 class="sub-header">What's it is for</h3>
+        <p>These definitions serve as the constitutional law of computer science. Requirements filter out "bad"
+            procedures (like infinite loops or vague instructions). Analysis serves as a prediction tool, allowing
+            engineers to estimate the performance of a system before building it, saving millions of dollars in wasted
+            development time on inefficient solutions.</p>
+
+        <h3 class="sub-header">How it solve our problem</h3>
+        <p>By strictly defining what an algorithm is, we avoid logical pitfalls where a program might hang or produce
+            random results. By analyzing them, we can mathematically prove that Solution A is superior to Solution B for
+            large inputs, independent of the hardware used (supercomputer vs. smartphone).</p>
+
+        <h3 class="sub-header">Real world example</h3>
+        <p><strong>A Cooking Recipe:</strong> A valid recipe is an algorithm. It has Inputs (Ingredients), Outputs
+            (Dish), Definiteness ("Add 1 tsp salt", not "Add some salt"). If a recipe said "Stir fast" (ambiguous) or
+            "Cook until world ends" (infinite), it would fail the requirements. <strong>Bridge Design:</strong>
+            Engineers calculate load capacity (Analysis) before building the bridge, rather than building it and driving
+            a truck over it to see if it collapses.</p>
+
+        <h3 class="sub-header">Why we choose only this rather than else</h3>
+        <p>We choose rigorous analysis over "trial and error" or "benchmarking" because benchmarks are unreliable. A
+            fast computer might run a bad algorithm quickly for small inputs, masking its inefficiency. Only
+            mathematical analysis reveals the true scalability (Asymptotic behavior) that matters for big data.</p>
+
+
+        <div id="u1-prob"></div>
+        <h2 class="topic-header">Problems & Instances</h2>
+
+        <h3 class="sub-header">Definition</h3>
+        <p>In algorithmic theory, a <strong>Problem</strong> is the abstract question to be solved, defined by a general
+            description of its parameters and a statement of what solution is required. An <strong>Instance</strong> is
+            a specific, concrete case of that problem with fixed input values.</p>
+        <p>"Sorting" is a Problem. "Sort the list {5, 1, 9, 3}" is an Instance. The distinction matters because
+            algorithms are designed to solve the *Problem* (all cases), while execution happens on an *Instance*.</p>
+
+        <h3 class="sub-header">Time & Space Complexity</h3>
+        <p>Time complexity T(n) is expressed as a function of the <strong>size of the instance</strong> (typically
+            denoted as 'n'). We do not calculate complexity for a single instance (which takes constant time), but for
+            the set of all possible instances of size n.</p>
+
+        <h3 class="sub-header">What's it is for</h3>
+        <p>This concept allows us to generalize. We don't want an algorithm that only sorts numbers starting with '5';
+            we want one that sorts <em>any</em> list of numbers. Separation of Problem and Instance is the foundation of
+            reusable software libraries.</p>
+
+        <h3 class="sub-header">How it solve our problem</h3>
+        <p>It creates a standard interface. The problem definition acts as a contract (e.g., "Input: Array A, Output:
+            Sorted A"). The algorithm implements this contract. We can test the algorithm against thousands of different
+            instances to verify correctness.</p>
+
+        <h3 class="sub-header">Real world example</h3>
+        <p><strong>GPS Navigation:</strong> The <em>Problems</em> is "Find shortest path from A to B". An
+            <em>Instance</em> is "My house to the Airport today". Google Maps writes one code base to solve the general
+            Problem, which then handles billions of unique Instances daily.</p>
+
+        <h3 class="sub-header">Why we choose only this rather than else</h3>
+        <p>If we focused only on instances, we would hard-code solutions (e.g., a lookup table). This is impossible for
+            infinite domains. Generalizing to Problems allows us to write logic (loops, conditions) that handles unseen
+            data.</p>
+
+
+        <div id="u1-asymp"></div>
+        <h2 class="topic-header">Asymptotic Notation (O, Ω, Θ, o, ω)</h2>
+
+        <h3 class="sub-header">Definition</h3>
+        <p>Asymptotic notations are mathematical tools used to describe the limiting behavior of a function. They define
+            "boundaries" for the growth of an algorithm's running time as input size approaches infinity.
+            <br><strong>Big-O (O):</strong> Upper Bound. The algorithm will never be slower than this.
+            <br><strong>Omega (Ω):</strong> Lower Bound. The algorithm will never be faster than this.
+            <br><strong>Theta (Θ):</strong> Tight Bound. The algorithm runs exactly within this corridor.
+        </p>
+        <p>Little-o and Little-omega are stricter versions of O and Ω where the bounds are not tight (inequality is
+            strict).</p>
+
+        <h3 class="sub-header">Time & Space Complexity</h3>
+        <p>These are the <em>language</em> of complexity. Instead of saying "The code takes 3n² + 5n + 2 microseconds",
+            we simply say "It is Θ(n²)". This abstraction removes hardware-specific constants and low-order terms that
+            become irrelevant for large n.</p>
+
+        <h3 class="sub-header">What's it is for</h3>
+        <p>They allow for quick, high-level comparison of algorithms. They categorize algorithms into "efficiency
+            classes" (Linear, Logarithmic, Quadratic, Exponential). This is crucial for selection; an O(n) algorithm is
+            objectively better than an O(n²) one for large data sets, regardless of implementation details.</p>
+
+        <h3 class="sub-header">How it solve our problem</h3>
+        <p>By focusing on the dominant term (e.g., n²), we simplify the math. We define a "Worst Case" (Big-O) to
+            guarantee performance safety guarantees—critical for real-time systems where missing a deadline isn't an
+            option.</p>
+
+        <h3 class="sub-header">Real world example</h3>
+        <p><strong>Buying a House:</strong> You ask the price. The agent says "It's in the high 6-figures". This is an
+            Order of Magnitude estimate (Theta). You don't care if it's $800,001 or $800,005; the "magnitude" tells you
+            if you can afford it. That is Asymptotic analysis.</p>
+
+        <h3 class="sub-header">Why we choose only this rather than else</h3>
+        <p>Exact instruction counting is tedious and brittle (changes if you change CPU). Asymptotic notation is robust
+            and remains true whether you run the code on a 1990 PC or a 2025 Supercomputer.</p>
+
+
+        <div id="u1-iter"></div>
+        <h2 class="topic-header">Iterative vs Recursive Algorithms</h2>
+
+        <h3 class="sub-header">Definition</h3>
+        <p><strong>Iterative Algorithms</strong> use looping constructs (for, while, do-while) to repeat a block of code
+            until a condition is met. The state is maintained explicitly in variables updated in each loop.
+            <br><strong>Recursive Algorithms</strong> solve a problem by defining a function that calls itself with a
+            smaller subset of the original input. The state is maintained implicitly by the system's Call Stack.
+        </p>
+        <p>Analyzing control structures implies looking at how these loops or recursive calls contribute to the total
+            step count (e.g., a loop running 'n' times inside a loop running 'n' times = n²).</p>
+
+        <h3 class="sub-header">Time & Space Complexity</h3>
+        <p><strong>Recursive:</strong> Usually Space O(n) due to stack depth. Time overhead for function calls.
+            <br><strong>Iterative:</strong> Usually Space O(1) (constant extra space). Faster execution generally due to
+            lack of stack operations.
+        </p>
+
+        <h3 class="sub-header">What's it is for</h3>
+        <p>These are two different programming paradigms. Recursion is often "declarative" (describing what to do),
+            making it perfect for hierarchical data (Trees, Graphs). Iteration is "imperative" (describing how to do
+            it), making it efficient for linear data (Arrays).</p>
+
+        <h3 class="sub-header">How it solve our problem</h3>
+        <p>Recursion solves problems by "Divide and Conquer"—breaking a hard problem into identical small ones.
+            Iteration solves problems by accumulation or incremental progress. Some problems (like DFS traversal) are 10
+            lines of code in Recursion but 50 lines in Iteration.</p>
+
+        <h3 class="sub-header">Real world example</h3>
+        <p><strong>Looking up a word in a real Dictionary:</strong>
+            <br><em>Recursive:</em> "Is it in the first half? No. Look in the second half." (Repeat logic on new half).
+            <br><em>Iterative:</em> Flip page 1, check. Flip page 2, check. Flip page 3, check. (Or jumping index by
+            index).
+        </p>
+
+        <h3 class="sub-header">Why we choose only this rather than else</h3>
+        <p>We choose <strong>Recursion</strong> for readability and complex structures (Trees). We choose
+            <strong>Iteration</strong> for raw performance, memory constraints (embedded systems), and simple linear
+            tasks to avoid Stack Overflow errors.</p>
+
+
+        <div id="u1-amort"></div>
+        <h2 class="topic-header">Amortized Analysis</h2>
+
+        <h3 class="sub-header">Definition</h3>
+        <p>Amortized Analysis is a technique used to establish a worst-case bound for the <em>average</em> performance
+            of each operation in a sequence of operations. It differs from Average-Case analysis because it does not
+            rely on probability; it guarantees the average performance over a worst-case sequence.</p>
+        <p>It considers the fact that in some data structures, expensive operations (like resizing an array) happen very
+            strictly rarely, and their cost can be "spread out" (amortized) over the many cheap operations that caused
+            them.</p>
+
+        <h3 class="sub-header">Time & Space Complexity</h3>
+        <p>Typically proves that an operation is Amortized O(1) (Constant time), even if its true Worst Case is O(n).
+            Real-time complexity is effectively constant implies smooth performance.</p>
+
+        <h3 class="sub-header">What's it is for</h3>
+        <p>It is used for dynamic path-compression data structures (Union-Find) and dynamic arrays (ArrayList/Vector).
+            It gives a more honest picture of performance than strict Worst-Case analysis, which would be overly
+            pessimistic for these structures.</p>
+
+        <h3 class="sub-header">How it solve our problem</h3>
+        <p>We use the <strong>Aggregate Method</strong> (Sum total costs / N), <strong>Accounting Method</strong>
+            (Charge $2 for a $1 op, save the $1 for later expensive ops), or <strong>Potential Method</strong> (Physics
+            energy analogy). These methods mathematically prove the spread cost.</p>
+
+        <h3 class="sub-header">Real world example</h3>
+        <p><strong>Paying Rent:</strong> You pay $3000 on the 1st of the month (Expensive operation). For the next 29
+            days, you pay $0 (Cheap operation). If you "Amortize" the cost, you are "effectively" paying $100/day. The
+            daily experienced cost is low, despite the occasional spike.</p>
+
+        <h3 class="sub-header">Why we choose only this rather than else</h3>
+        <p>If we used strict Worst-Case, we would reject `ArrayList` because "Insert is O(n)" (due to resizing). But
+            `ArrayList` is excellent in practice. Amortized Analysis explains <em>why</em> it is excellent, validating
+            its use in standard libraries.</p>
+
+        <!-- ================= UNIT 2 ================= -->
+        <h1 class="unit-header">Unit 2: Solving Recurrences</h1>
+
+        <div id="u2-gen"></div>
+        <h2 class="topic-header">Generating Recurrence Relations</h2>
+
+        <h3 class="sub-header">Definition</h3>
+        <p>A recurrence relation is a mathematical equation that defines a sequence recursively; it expresses the nth
+            term as a function of previous terms. In algorithms, generating a recurrence means translating the logic of
+            a recursive function into a mathematical formula T(n).</p>
+        <p>For example, if an algorithm splits input in half and does linear work, we write `T(n) = T(n/2) + n`. This
+            step is the bridge between Code and Math.</p>
+
+        <h3 class="sub-header">Time & Space Complexity</h3>
+        <p>The relation itself describes the Time Complexity structure. Solving it (finding the closed form) gives us
+            the Big-O notation.</p>
+
+        <h3 class="sub-header">What's it is for</h3>
+        <p>It models the cost of Divide and Conquer algorithms. Since D&C algorithms invoke themselves, their cost is
+            naturally self-referential. We cannot use simple instruction counting.</p>
+
+        <h3 class="sub-header">How it solve our problem</h3>
+        <p>To analyze a recursive function, we look at three parts: 1. The number of subproblems (a), 2. The size of
+            subproblems (n/b), 3. The cost to divide and combine (f(n)). We combine these into `T(n) = aT(n/b) + f(n)`.
+        </p>
+
+        <h3 class="sub-header">Real world example</h3>
+        <p><strong>Cell Mitosis:</strong> One cell divides into two every hour. Population P(t) = 2 * P(t-1). This is a
+            recurrence. Solving it gives P(t) = 2^t (Exponential growth).</p>
+
+        <h3 class="sub-header">Why we choose only this rather than else</h3>
+        <p>There is no other way to analyze recursion. Loop counting fails because the loop limits themselves change in
+            every recursive call.</p>
+
+
+        <div id="u2-range"></div>
+        <h2 class="topic-header">Range Transformation & Change of Variable</h2>
+
+        <h3 class="sub-header">Definition</h3>
+        <p><strong>Change of Variable:</strong> A technique to simplify complex recurrences (like `T(n) = 2T(√n) + log
+            n`) by substituting the variable (e.g., let `m = log n`) to transform it into a standard form we know how to
+            solve.</p>
+        <p><strong>Range Transformation:</strong> Adjusting the domain or range of the recurrence to fit standard
+            theorems (like Master Theorem). It involves algebraic manipulation to map a hard problem to an easy, solved
+            problem.</p>
+
+        <h3 class="sub-header">Time & Space Complexity</h3>
+        <p>Does not change complexity, but reveals it. For example, `T(n) = 2T(√n) + log n` solves to O(log n * log log
+            n) via transformation.</p>
+
+        <h3 class="sub-header">What's it is for</h3>
+        <p>Handling "non-standard" recurrences that don't fit the `T(n/b)` mold directly. often seen in advanced
+            algorithm design or number theoretic algorithms.</p>
+
+        <h3 class="sub-header">How it solve our problem</h3>
+        <p>1. Rename `n` to `2^m`. <br>2. Rewrite equation in terms of `m`. <br>3. Solve for `m`. <br>4. Substitute `n`
+            back. <br>It turns a scary square-root recurrence into a simple linear divide-and-conquer one.</p>
+
+        <h3 class="sub-header">Real world example</h3>
+        <p><strong>Logarithmic Scales:</strong> In audio engineering, we convert signal power (Linear) to Decibels
+            (Logarithmic) to make calculations additive instead of multiplicative. This is a change of variable to
+            simplify math.</p>
+
+        <h3 class="sub-header">Why we choose only this rather than else</h3>
+        <p>Without this technique, we would be stuck. Standard Master Theorem fails on `√n`. Variable transformation
+            unlocks the solution toolbox for a wider class of algorithms.</p>
+
+
+        <div id="u2-master"></div>
+        <h2 class="topic-header">Master Theorem</h2>
+
+        <h3 class="sub-header">Definition</h3>
+        <p>The Master Theorem is a "cookbook" method for solving recurrences of the form
+            <code>T(n) = aT(n/b) + f(n)</code>. It provides a direct template to determine asymptotic complexity by
+            comparing the rate of growth of the recursive work (leaves) vs. the combination work (root).</p>
+        <p>It has three cases based on comparing <code>n^{log_b(a)}</code> with <code>f(n)</code>:
+            <br>1. Leaves grow faster -> Complexity is leaf-bound.
+            <br>2. Rates are even -> Complexity is n * log n.
+            <br>3. Root grows faster -> Complexity is root-bound.
+        </p>
+
+        <h3 class="sub-header">Time & Space Complexity</h3>
+        <p>Provides the answer immediately in Big-Theta (Θ) notation. It covers the vast majority of standard algorithms
+            (Merge Sort, Binary Search, Stressen's).</p>
+
+        <h3 class="sub-header">What's it is for</h3>
+        <p>Speed. During an exam or a whiteboard interview, you do not have time to draw a massive recursion tree or do
+            an inductive proof. Master Theorem gives the answer in 10 seconds.</p>
+
+        <h3 class="sub-header">How it solve our problem</h3>
+        <p>It reduces calculus to simple algebra. You just identify `a`, `b`, and `f(n)` and check inequalities. It acts
+            as a pre-calculated lookup table for Differential Equations of algorithms.</p>
+
+        <h3 class="sub-header">Real world example</h3>
+        <p><strong>Corporate Management:</strong>
+            <br>Case 1: The interns (leaves) do all the work. (O(n^x)).
+            <br>Case 3: The CEO (root) does all the work. (O(f(n))).
+            <br>The Theorem tells you who is the bottleneck in the organization hierarchy.
+        </p>
+
+        <h3 class="sub-header">Why we choose only this rather than else</h3>
+        <p>Substitution method requires a "guess" (Intuition). Iteration method is prone to algebra errors. Master
+            Theorem is precise, mechanical, and less error-prone.</p>
+
+
+        <!-- ================= UNIT 3 ================= -->
+        <h1 class="unit-header">Unit 3: Divide and Conquer</h1>
+
+        <div id="u3-inv"></div>
+        <h2 class="topic-header">Counting Inversions</h2>
+
+        <h3 class="sub-header">Definition</h3>
+        <p>An Inversion in an array is a pair of indices (i, j) such that `i < j` but `Arr[i]> Arr[j]`. It indicates how
+                far an array is from being sorted. A sorted array has 0 inversions. A reverse-sorted array has max
+                inversions.</p>
+        <p>The problem is to count the total number of such pairs. The naive approach generates n(n-1)/2 pairs.</p>
+
+        <h3 class="sub-header">Time & Space Complexity</h3>
+        <p><strong>Brute Force:</strong> O(n²).
+            <br><strong>Divide & Conquer:</strong> O(n log n) (Modified Merge Sort).
+            <br><strong>Space:</strong> O(n) for temporary array.
+        </p>
+
+        <h3 class="sub-header">What's it is for</h3>
+        <p>It is a measure of "disorder". Used in collaborative filtering to measure the difference between two people's
+            rankings of a list of movies or products.</p>
+
+        <h3 class="sub-header">How it solve our problem</h3>
+        <p>We hijack Merge Sort. During the <code>Merge()</code> step, if we pick an element from the Right subarray to
+            be placed before the Left subarray, it means that Right element is "smaller" than <em>all</em> remaining
+            elements in the Left subarray. We simply add `(mid - i)` to our count. We solve sorting and counting
+            simultaneously.</p>
+
+        <h3 class="sub-header">Real world example</h3>
+        <p><strong>Spotify/Amazon:</strong> User A ranks songs [1,2,3]. User B ranks [3,2,1]. The number of inversions
+            helps the algorithm decide if User B is similar to User A (low inversions) or opposite (high inversions).
+        </p>
+
+        <h3 class="sub-header">Why we choose only this rather than else</h3>
+        <p>For N=1,000,000 items, O(n²) is 1 trillion ops (too slow). O(n log n) is 20 million ops (instant). The D&C
+            approach is the only viable one for big data.</p>
+
+
+        <div id="u3-mat"></div>
+        <h2 class="topic-header">Strassen's Matrix Multiplication</h2>
+
+        <h3 class="sub-header">Definition</h3>
+        <p>Strassen's Algorithm is a specific Divide and Conquer strategy for multiplying two n x n matrices. Unlike the
+            standard method which takes 8 multiplications for 2x2 blocks, Strassen's uses a clever algebraic trick to do
+            it in 7 multiplications.</p>
+
+        <h3 class="sub-header">Time & Space Complexity</h3>
+        <p><strong>Standard:</strong> O(n³).
+            <br><strong>Strassen:</strong> O(n^2.81).
+            <br>For huge N, 2.81 is significantly smaller than 3.
+            <br><strong>Space:</strong> High O(n²) due to many temp matrices for recursion.
+        </p>
+
+        <h3 class="sub-header">What's it is for</h3>
+        <p>Used in high-performance computing (HPC) for large-scale scientific simulations, graphics rendering, and
+            training Neural Networks (Deep Learning) where Matrix Multiply is the bottleneck.</p>
+
+        <h3 class="sub-header">How it solve our problem</h3>
+        <p>It trades Additions for Multiplications. It explicitly calculates 7 intermediate terms (P1...P7) involving
+            sums of sub-matrices. Then it constructs the result quadrants from these P terms. Since multipliers are
+            slower than adders in hardware, reducing mults saves time.</p>
+
+        <h3 class="sub-header">Real world example</h3>
+        <p><strong>Graphics Cards (GPUs):</strong> Rendering a 4K game involves multiplying huge transformation
+            matrices. Saving even 10% of operations results in higher FPS (Frames Per Second).</p>
+
+        <h3 class="sub-header">Why we choose only this rather than else</h3>
+        <p>We actually <em>don't</em> choose it for small matrices (N < 100) because the overhead of recursion /
+                additions is high. But for N> 2000, Strassen is mandatory to beat the O(n³) barrier.</p>
+
+
+        <!-- ================= UNIT 4 ================= -->
+        <h1 class="unit-header">Unit 4: Greedy Algorithms</h1>
+
+        <div id="u4-mst"></div>
+        <h2 class="topic-header">Kruskal’s & Prim’s (MST)</h2>
+
+        <h3 class="sub-header">Definition</h3>
+        <p><strong>Minimum Spanning Tree (MST):</strong> A subgraph that connects all vertices in a weighted graph with
+            the minimum possible total edge weight, without cycles.
+            <br><strong>Kruskal's:</strong> Edge-centric. Sort all edges by weight, add smallest edge if it doesn't form
+            a cycle.
+            <br><strong>Prim's:</strong> Vertex-centric. Grow a tree from a source node, always adding the cheapest edge
+            connecting the Tree to the Outside.
+        </p>
+
+        <h3 class="sub-header">Time & Space Complexity</h3>
+        <p><strong>Kruskal's:</strong> O(E log E) or O(E log V). Bound by sorting edges.
+            <br><strong>Prim's:</strong> O(E + V log V) using Fibonacci Heap.
+            <br>Space: O(V + E).
+        </p>
+
+        <h3 class="sub-header">What's it is for</h3>
+        <p>Network Design. Laying cables, pipes, or roads to connect a set of cities/computers using the least amount of
+            material.</p>
+
+        <h3 class="sub-header">How it solve our problem</h3>
+        <p>Both use the "Greedy Choice Property". They prove that making the locally best choice (cheapest edge) at each
+            step guarantees the globally optimal tree. No backtracking needed.</p>
+
+        <h3 class="sub-header">Real world example</h3>
+        <p><strong>Power Grid:</strong> You want to connect 50 houses to the power plant. Copper wire costs money per
+            meter. MST algorithms tell you exactly which poles to connect to minimize total wire length.</p>
+
+        <h3 class="sub-header">Why we choose only this rather than else</h3>
+        <p>We choose <strong>Kruskal</strong> for Sparse graphs (few edges) because it is simple to implement with
+            Union-Find. We choose <strong>Prim</strong> for Dense graphs (many edges) because it visits every vertex
+            efficiently.</p>
+
+
+        <div id="u4-huff"></div>
+        <h2 class="topic-header">Huffman Coding</h2>
+
+        <h3 class="sub-header">Definition</h3>
+        <p>Huffman Coding is a statistical data compression algorithm. It generates an optimal "Prefix Code" where
+            frequently occurring characters get very short binary codes (e.g., '0') and rare characters get long codes
+            (e.g., '10111'). It builds a binary tree bottom-up to determine these codes.</p>
+
+        <h3 class="sub-header">Time & Space Complexity</h3>
+        <p>O(N log N) where N is the number of distinct characters, due to Min-Heap operations during tree construction.
+        </p>
+
+        <h3 class="sub-header">What's it is for</h3>
+        <p>Lossless Compression. Used in ZIP files, JPEG (final stage), and MP3. It reduces file size without losing a
+            single bit of information.</p>
+
+        <h3 class="sub-header">How it solve our problem</h3>
+        <p>It takes a greedy approach: "Combine the two rarest characters/subtrees into one." Repeating this ensures the
+            rarest characters are at the bottom of the tree (longest path/code) and frequent ones are at the top.</p>
+
+        <h3 class="sub-header">Real world example</h3>
+        <p><strong>English Text:</strong> The letter 'e' appears 12% of the time. 'z' appears 0.07%. ASCII uses 8 bits
+            for both. Huffman uses some 3 bits for 'e' and 10 bits for 'z'. Since 'e' is common, the total file size
+            shrinks by ~40%.</p>
+
+        <h3 class="sub-header">Why we choose only this rather than else</h3>
+        <p>It is the proven <strong>optimal</strong> symbol-by-symbol coding method. It is simple, fast, and requires no
+            prior knowledge of the data string (adaptive variants exist). While Arithmetic Coding is slightly better,
+            Huffman is faster/simpler.</p>
+
+
+        <!-- ================= UNIT 5 ================= -->
+        <h1 class="unit-header">Unit 5: Dynamic Programming</h1>
+
+        <div id="u5-bin"></div>
+        <h2 class="topic-header">Binomial Coefficients & Making Change</h2>
+
+        <h3 class="sub-header">Definition</h3>
+        <p><strong>Binomial Coeff:</strong> Computing "N choose K" (C(n,k)).
+            <br><strong>Making Change:</strong> Finding min coins to reach Value V.
+            <br>Both are classic DP examples. Calculating C(n,k) via recursion involves massive overlap (`C(n,k) =
+            C(n-1, k-1) + C(n-1, k)`). DP stores these.
+        </p>
+
+        <h3 class="sub-header">Time & Space Complexity</h3>
+        <p><strong>Binomial:</strong> O(n*k) time and space.
+            <br><strong>Change:</strong> O(V*N) where V is value, N is number of coin types.
+            <br>Compare to Recurisve C(n,k) which is O(2^n).
+        </p>
+
+        <h3 class="sub-header">What's it is for</h3>
+        <p>Binomial: Probability calculations, combinatorics.
+            <br>Change: Electronic cash systems, resource optimization.
+        </p>
+
+        <h3 class="sub-header">How it solve our problem</h3>
+        <p><strong>Pascal's Triangle:</strong> DP constructs the triangle row by row. To find row 5, we use values from
+            row 4. No re-calculation. <br><strong>Change:</strong> To make $10, we check (10 - coin1), (10 - coin2) and
+            take the best of those computed sub-answers.</p>
+
+        <h3 class="sub-header">Real world example</h3>
+        <p><strong>Combinatorics:</strong> In Poker software, calculating the odds of a specific hand involves huge
+            Binomial coefficients. Hardcoding them or using DP is essential for speed.</p>
+
+        <h3 class="sub-header">Why we choose only this rather than else</h3>
+        <p>Recursion crashes for C(100, 50). The Greedy method fails for Change Making (if coins are {1, 3, 4}, Greedy
+            for 6 is 4,1,1 (3 coins) but Optimal is 3,3 (2 coins)). DP is the <strong>only</strong> way to get the
+            correct answer.</p>
+
+
+        <div id="u5-floyd"></div>
+        <h2 class="topic-header">Floyd’s & chained matrix multiplication</h2>
+
+        <h3 class="sub-header">Definition</h3>
+        <p><strong>Floyd-Warshall:</strong> An All-Pairs Shortest Path algorithm. It finds the shortest distance between
+            every pair of nodes (u, v) in a graph.
+            <br><strong>Chained Matrix Mult:</strong> Finding optimal parenthesis placement for A*B*C*D... to minimize
+            scalar multiplications.
+        </p>
+
+        <h3 class="sub-header">Time & Space Complexity</h3>
+        <p><strong>Floyd:</strong> O(V³). Very structured.
+            <br><strong>Matrix Chain:</strong> O(N³).
+            <br>Both are cubic algorithms that use a 2D/3D table.
+        </p>
+
+        <h3 class="sub-header">What's it is for</h3>
+        <p>Floyd: Dense graphs, Network routing tables.
+            <br>Matrix Chain: Compiler optimization for scientific code.
+        </p>
+
+        <h3 class="sub-header">How it solve our problem</h3>
+        <p>Floyd's uses relaxation on intermediate nodes: `dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])`. It
+            iterates 'k' from 1 to V. Effectively, it checks limits "Allowing path through node 1", then "Nodes 1 and
+            2", etc.</p>
+
+        <h3 class="sub-header">Real world example</h3>
+        <p><strong>Airline Routing:</strong> Finding shortest flight paths between ALL cities on a map, not just from
+            one hub.
+            <br><strong>Matrix Chain:</strong> Optimizing a deep learning pipeline efficiently.
+        </p>
+
+        <h3 class="sub-header">Why we choose only this rather than else</h3>
+        <p>Runing Dijkstra V times is complex to code and handles negative edges poorly. Floyd is 5 lines of code and
+            handles negative weights (but not cycles). Use Floyd for implementation simplicity on small/dense graphs.
+        </p>
+
+
+        <!-- ================= UNIT 6 ================= -->
+        <h1 class="unit-header">Unit 6: Graph Algorithms</h1>
+
+        <div id="u6-dag"></div>
+        <h2 class="topic-header">DAG & Topological Sort</h2>
+
+        <h3 class="sub-header">Definition</h3>
+        <p><strong>DAG:</strong> Directed Acyclic Graph. A graph with directions and NO loops.
+            <br><strong>Topological Sort:</strong> Ordering vertices such that for every edge u->v, u appears before v
+            in the list. Impossible if a cycle exists.
+        </p>
+
+        <h3 class="sub-header">Time & Space Complexity</h3>
+        <p>O(V + E) using DFS or Kahn's Algorithm (In-degree method).
+            <br>Space: O(V).
+        </p>
+
+        <h3 class="sub-header">What's it is for</h3>
+        <p>Dependency Resolution. Determining the sequence of events where some events must happen before others.</p>
+
+        <h3 class="sub-header">How it solve our problem</h3>
+        <p>It linearizes a complex web of dependencies. The algorithm identifies nodes with "0 dependencies" (In-degree
+            0), processes them, effectively "removing" them, unlocking new nodes. This flows until the graph is empty.
+        </p>
+
+        <h3 class="sub-header">Real world example</h3>
+        <p><strong>Software Installers (apt-get/npm):</strong> "To install Chrome, you need LibX. To install LibX, you
+            need CoreLib." Topo Sort determines the install order: CoreLib -> LibX -> Chrome.</p>
+
+        <h3 class="sub-header">Why we choose only this rather than else</h3>
+        <p>Standard sorting (lexicographical) doesn't respect graph edges. Topo Sort is the unique mathematical tool for
+            scheduling dependent tasks.</p>
+
+
+        <div id="u6-back"></div>
+        <h2 class="topic-header">Backtracking (Queens & Sum of Subsets)</h2>
+
+        <h3 class="sub-header">Definition</h3>
+        <p>Backtracking is a "systematic brute force". It builds a solution incrementally (step by step) and if it
+            detects that the current partial solution cannot possibly be completed to a valid one, it abandons it
+            ("backtracks") and tries a different path.
+            <br><strong>N-Queens:</strong> Place N queens on NxN board so no two attack each other.
+            <br><strong>Sum of Subsets:</strong> Find a subset of numbers that sum to K.
+        </p>
+
+        <h3 class="sub-header">Time & Space Complexity</h3>
+        <p><strong>Time:</strong> Exponential O(N!) or O(2^N).
+            <br><strong>Space:</strong> O(N) (Recursion depth).
+            <br>It is slow, but usually much faster than raw Brute Force because it "prunes" dead ends early.
+        </p>
+
+        <h3 class="sub-header">What's it is for</h3>
+        <p>Constraint Satisfaction Problems (CSP). Puzzles, Logic games, Configuration verification.</p>
+
+        <h3 class="sub-header">How it solve our problem</h3>
+        <p>In N-Queens, we place a Queen in col 1. Then try col 2. If row 1 is attacked, we don't try placing there. We
+            skip huge branches of the decision tree. It is a Depth First Search on the state space tree.</p>
+
+        <h3 class="sub-header">Real world example</h3>
+        <p><strong>Sudoku Solver:</strong> The computer tries a '5' in a cell. If it conflicts later, it backtracks and
+            tries '6'. <br><strong>Menu Planning:</strong> Finding a combination of foods that hit exact calorie targets
+            (Subset Sum).</p>
+
+        <h3 class="sub-header">Why we choose only this rather than else</h3>
+        <p>For N-Queens, there is no simple formula. We <em>must</em> search. Backtracking is the most efficient search
+            for finding <em>all</em> solutions (not just one optimal one).</p>
+
+
+        <!-- ================= UNIT 7 ================= -->
+        <h1 class="unit-header">Unit 7: Computational Complexity</h1>
+
+        <div id="u7-pnp"></div>
+        <h2 class="topic-header">P, NP, NP-Hard, NP-Complete</h2>
+
+        <h3 class="sub-header">Definition</h3>
+        <p><strong>P (Polynomial):</strong> Problems solvable in reasonable time (O(n), O(n²)). Easy.
+            <br><strong>NP (Nondeterministic Polynomial):</strong> Problems where a <em>solution</em> can be
+            <em>verified</em> in reasonable time. (Hard to solve, easy to check).
+            <br><strong>NP-Hard:</strong> The hardest problems. If we solve one, we solve all NP problems.
+            <br><strong>NP-Complete:</strong> Problems that are in both NP and NP-Hard.
+        </p>
+
+        <h3 class="sub-header">Time & Space Complexity</h3>
+        <p>P problems runs in T(n) = O(n^k). NP-Complete problems currently accept only Exponential time algorithms
+            O(2^n) or O(n!).</p>
+
+        <h3 class="sub-header">What's it is for</h3>
+        <p>Classification of difficulty. It distinguishes between "We can optimize this" (P) and "This is inherently
+            impossible to solve perfectly for large inputs" (NP-Hard).</p>
+
+        <h3 class="sub-header">How it solve our problem</h3>
+        <p>This theory saves developers from losing their jobs. If your boss asks for an optimal Scheduling algorithm
+            (NP-Complete), you can cite this theory to explain why you must use an Approximation algorithm instead of a
+            perfect one.</p>
+
+        <h3 class="sub-header">Real world example</h3>
+        <p><strong>P:</strong> Sorting a deck of cards.
+            <br><strong>NP-Complete:</strong> Tetris (Optimally playing), Jigsaw Puzzles, Protein Folding.
+            <br><strong>NP-Hard:</strong> Halting Problem (Will this code overlap?).
+        </p>
+
+        <h3 class="sub-header">Why we choose only this rather than else</h3>
+        <p>Understanding this boundary is central to Computer Science. It defines the limits of computation. It guides
+            us to use Heuristics (Genetic Algos, Simulated Annealing) when we hit an NP-Complete wall.</p>
+
+
+        <div id="u7-sat"></div>
+        <h2 class="topic-header">SAT & TSP</h2>
+
+        <h3 class="sub-header">Definition</h3>
+        <p><strong>SAT (Satisfiability):</strong> Given a boolean formula (e.g., (A or B) and (not A or C)), can we
+            assign True/False to variables to make the whole formula True?
+            <br><strong>TSP (Traveling Salesman):</strong> Find shortest route visiting all cities exactly once and
+            returning to start.
+        </p>
+
+        <h3 class="sub-header">Time & Space Complexity</h3>
+        <p>Both are NP-Complete. Solving them for N=100 is feasible. Solving for N=100,000 would take longer than the
+            age of the universe.</p>
+
+        <h3 class="sub-header">What's it is for</h3>
+        <p>SAT is the basis of Formal Verification. TSP is the basis of Logistics and Manufacturing.</p>
+
+        <h3 class="sub-header">How it solve our problem</h3>
+        <p><strong>Cook's Theorem</strong> proved SAT was the "First" NP-Complete problem. All other problems like TSP
+            are proved to be hard by converting ("reducing") them to SAT. If we could crack SAT, we would solve
+            everything (P = NP).</p>
+
+        <h3 class="sub-header">Real world example</h3>
+        <p><strong>SAT:</strong> EDA Tools use SAT solvers to verify that a new Intel CPU design doesn't have logical
+            bugs.
+            <br><strong>TSP:</strong> Amazon delivery trucks routing. They use "Heuristic TSP" to get a "good enough"
+            route, because the "perfect" route is too hard to find.
+        </p>
+
+        <h3 class="sub-header">Why we choose only this rather than else</h3>
+        <p>We study these not to implement Brute Force, but to understand the structure of complexity and design
+            Approximation Algorithms (getting within 1% of optimal in reasonable time).</p>
+
+    </div>
+
+</body>
+
+</html>

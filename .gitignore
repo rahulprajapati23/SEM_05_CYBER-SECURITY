@@ -5,3 +5,7 @@ __pycache__/
 **/venv/
 venv/
 .streamlit/
+
+AAD_EXAM.py
+AAD_EXAM_GEN.py
+EXAM.py

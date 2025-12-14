@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 import base64
+import streamlit.components.v1 as components
 
 def check_password():
     """Returns `True` if the user had the correct password."""
@@ -254,11 +255,16 @@ def main():
             
             # Display content based on file type
             try:
-                if ext in ['.py', '.c', '.cpp', '.java', '.js', '.html', '.css', '.txt', '.md', '.json', '.xml', '.asm']:
+                if ext in ['.py', '.c', '.cpp', '.java', '.js', '.css', '.txt', '.md', '.json', '.xml', '.asm']:
                     with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
                         content = f.read()
                     st.code(content, language=ext[1:] if ext.startswith('.') else ext)
                     
+                elif ext in ['.html']:
+                    with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+                        html_content = f.read()
+                    components.html(html_content, height=800, scrolling=True)
+
                 elif ext in ['.png', '.jpg', '.jpeg', '.gif', '.bmp']:
                     st.image(file_path)
                     
